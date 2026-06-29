@@ -7,6 +7,8 @@ const navItems = [
   { to: "/register", labelKey: "nav.register" },
   { to: "/company/register", labelKey: "nav.companyRegister" },
   { to: "/customer/dashboard", labelKey: "nav.customerDashboard" },
+  { to: "/customer/requests", labelKey: "nav.customerRequests" },
+  { to: "/customer/requests/new", labelKey: "nav.createRequest" },
   { to: "/company/dashboard", labelKey: "nav.companyDashboard" },
   { to: "/admin", labelKey: "nav.admin" }
 ];

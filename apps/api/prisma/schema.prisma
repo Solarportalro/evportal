@@ -30,6 +30,69 @@ enum CompanyStatus {
   REJECTED
 }
 
+enum VehicleFuelType {
+  ELECTRIC
+  PLUG_IN_HYBRID
+  HYBRID
+  GASOLINE
+  DIESEL
+}
+
+enum VehicleRequestMode {
+  EXACT_MODEL
+  RECOMMENDATION
+}
+
+enum VehicleRequestStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  ACTIVE
+  OFFERS_RECEIVED
+  CUSTOMER_DECIDING
+  COMPANY_SELECTED
+  CLOSED_SUCCESSFULLY
+  CLOSED_WITHOUT_PURCHASE
+  EXPIRED
+  REJECTED
+  CANCELLED
+}
+
+enum VehicleBodyType {
+  SMALL_HATCHBACK
+  SEDAN
+  SUV_CROSSOVER
+  VAN_BUSINESS
+  OTHER
+}
+
+enum StockImportPreference {
+  IN_STOCK_ONLY
+  IMPORT_OK
+  BOTH
+  NOT_SURE
+}
+
+enum PurchaseTimeline {
+  ASAP
+  ONE_TO_THREE_MONTHS
+  JUST_EXPLORING
+}
+
+enum HasSolar {
+  YES
+  NO
+  PLANNING
+  UNKNOWN
+}
+
+enum SolarChargingInterest {
+  YES
+  MAYBE_LATER
+  NO
+  NOT_ASKED
+}
+
 model GlobalCustomer {
   id              String   @id @default(cuid())
   normalizedPhone String?  @unique
@@ -60,6 +123,7 @@ model User {
   refreshTokens           RefreshToken[]
   setPasswordTokens       SetPasswordToken[]
   emailVerificationTokens EmailVerificationToken[]
+  vehicleRequests         VehicleRequest[]
 
   @@index([normalizedEmail])
   @@index([normalizedPhone])
@@ -133,4 +197,69 @@ model EmailVerificationToken {
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model VehicleMake {
+  id              String           @id @default(cuid())
+  name            String           @unique
+  slug            String           @unique
+  isActive        Boolean          @default(true)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  models          VehicleModel[]
+  vehicleRequests VehicleRequest[]
+
+  @@index([isActive])
+}
+
+model VehicleModel {
+  id              String           @id @default(cuid())
+  makeId          String
+  make            VehicleMake      @relation(fields: [makeId], references: [id], onDelete: Cascade)
+  name            String
+  slug            String
+  isActive        Boolean          @default(true)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  vehicleRequests VehicleRequest[]
+
+  @@unique([makeId, name])
+  @@unique([makeId, slug])
+  @@index([makeId])
+  @@index([isActive])
+}
+
+model VehicleRequest {
+  id                    String                @id @default(cuid())
+  customerId            String
+  customer              User                  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  requestMode           VehicleRequestMode
+  status                VehicleRequestStatus  @default(SUBMITTED)
+  fuelType              VehicleFuelType
+  makeId                String?
+  make                  VehicleMake?          @relation(fields: [makeId], references: [id], onDelete: SetNull)
+  modelId               String?
+  model                 VehicleModel?         @relation(fields: [modelId], references: [id], onDelete: SetNull)
+  manualMake            String?
+  manualModel           String?
+  preferredYearFrom     Int?
+  preferredYearTo       Int?
+  bodyType              VehicleBodyType?
+  budgetMin             Int?
+  budgetMax             Int?
+  desiredRangeKm        Int?
+  stockImportPreference StockImportPreference
+  purchaseTimeline      PurchaseTimeline
+  hasSolar              HasSolar
+  solarChargingInterest SolarChargingInterest @default(NOT_ASKED)
+  notes                 String?
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([fuelType])
+  @@index([createdAt])
+  @@index([makeId])
+  @@index([modelId])
 }

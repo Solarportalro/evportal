@@ -8,6 +8,8 @@
     "register": "Գրանցում",
     "companyRegister": "Ընկերության գրանցում",
     "customerDashboard": "Հաճախորդի վահանակ",
+    "customerRequests": "Իմ հայտերը",
+    "createRequest": "Ստեղծել հայտ",
     "companyDashboard": "Ընկերության վահանակ",
     "admin": "Ադմին",
     "privacy": "Գաղտնիություն",
@@ -24,6 +26,97 @@
     "loggedOut": "Ելքը կատարված է։",
     "logout": "Ելք",
     "failed": "Հարցումը ձախողվեց"
+  },
+  "requests": {
+    "myRequests": "Իմ մեքենայի հայտերը",
+    "myRequestsDescription": "Դիտեք EV Portal ուղարկված ձեր մեքենայի պահանջները։",
+    "create": "Ստեղծել հայտ",
+    "empty": "Մեքենայի հայտեր դեռ չկան։",
+    "newRequest": "Նոր մեքենայի հայտ",
+    "details": "Մեքենայի հայտի մանրամասներ",
+    "backToRequests": "Վերադառնալ հայտերին",
+    "mode": "Հայտի տեսակ",
+    "exactMode": "Գիտեմ կոնկրետ մեքենան",
+    "recommendationMode": "Ուզում եմ առաջարկներ",
+    "brand": "Բրենդ",
+    "make": "Արտադրող",
+    "model": "Մոդել",
+    "selectMake": "Ընտրել արտադրողը",
+    "selectModel": "Ընտրել մոդելը",
+    "otherNotListed": "Այլ / ցանկում չկա",
+    "manualMake": "Արտադրողը ձեռքով",
+    "manualModel": "Մոդելը ձեռքով",
+    "fuelType": "Վառելիքի տեսակ",
+    "bodyType": "Թափքի տեսակ",
+    "stockPreference": "Պահեստ/ներմուծում",
+    "yearFrom": "Տարի՝ սկսած",
+    "yearTo": "Տարի՝ մինչև",
+    "budgetMin": "Նվազագույն բյուջե",
+    "budgetMax": "Առավելագույն բյուջե",
+    "range": "Ցանկալի ընթացք, կմ",
+    "timeline": "Գնման ժամկետ",
+    "hasSolar": "Արևայինի կարգավիճակ",
+    "solarInterest": "Արևային լիցքավորման հետաքրքրություն",
+    "notes": "Նշումներ",
+    "submit": "Ուղարկել հայտը",
+    "loadFailed": "Չհաջողվեց բեռնել մեքենայի հայտերը։",
+    "createFailed": "Չհաջողվեց ստեղծել մեքենայի հայտը։",
+    "catalogLoadFailed": "Չհաջողվեց բեռնել մեքենաների ցանկը։"
+  },
+  "requestModes": {
+    "EXACT_MODEL": "Կոնկրետ մոդել",
+    "RECOMMENDATION": "Առաջարկներ"
+  },
+  "requestStatuses": {
+    "DRAFT": "Սևագիր",
+    "SUBMITTED": "Ուղարկված",
+    "UNDER_REVIEW": "Ստուգման փուլում",
+    "ACTIVE": "Ակտիվ",
+    "OFFERS_RECEIVED": "Առաջարկներ ստացված են",
+    "CUSTOMER_DECIDING": "Հաճախորդը որոշում է",
+    "COMPANY_SELECTED": "Ընկերությունը ընտրված է",
+    "CLOSED_SUCCESSFULLY": "Փակված հաջողությամբ",
+    "CLOSED_WITHOUT_PURCHASE": "Փակված առանց գնման",
+    "EXPIRED": "Ժամկետանց",
+    "REJECTED": "Մերժված",
+    "CANCELLED": "Չեղարկված"
+  },
+  "fuelTypes": {
+    "ELECTRIC": "Էլեկտրական",
+    "PLUG_IN_HYBRID": "Լիցքավորվող հիբրիդ",
+    "HYBRID": "Հիբրիդ",
+    "GASOLINE": "Բենզին",
+    "DIESEL": "Դիզել"
+  },
+  "bodyTypes": {
+    "SMALL_HATCHBACK": "Փոքր հեչբեք",
+    "SEDAN": "Սեդան",
+    "SUV_CROSSOVER": "SUV / քրոսովեր",
+    "VAN_BUSINESS": "Վեն / բիզնես",
+    "OTHER": "Այլ"
+  },
+  "stockPreferences": {
+    "IN_STOCK_ONLY": "Միայն առկա",
+    "IMPORT_OK": "Ներմուծումը հարմար է",
+    "BOTH": "Երկուսն էլ",
+    "NOT_SURE": "Վստահ չեմ"
+  },
+  "timelines": {
+    "ASAP": "Հնարավորինս շուտ",
+    "ONE_TO_THREE_MONTHS": "1-3 ամիս",
+    "JUST_EXPLORING": "Դեռ ուսումնասիրում եմ"
+  },
+  "solarValues": {
+    "YES": "Այո",
+    "NO": "Ոչ",
+    "PLANNING": "Պլանավորում եմ",
+    "UNKNOWN": "Չգիտեմ"
+  },
+  "solarInterestValues": {
+    "YES": "Այո",
+    "MAYBE_LATER": "Գուցե հետո",
+    "NO": "Ոչ",
+    "NOT_ASKED": "Չի հարցվել"
   },
   "pages": {
     "home": {

@@ -1,0 +1,21 @@
+export const vehicleCatalogSeed = [
+  { make: "BYD", models: ["Atto 3", "Dolphin", "Seal", "Song Plus", "Yuan Plus"] },
+  { make: "Tesla", models: ["Model 3", "Model Y", "Model S", "Model X"] },
+  { make: "Nissan", models: ["Leaf", "Ariya"] },
+  { make: "Volkswagen", models: ["ID.3", "ID.4", "ID.6"] },
+  { make: "Hyundai", models: ["Ioniq 5", "Kona Electric"] },
+  { make: "Kia", models: ["EV6", "Niro EV"] },
+  { make: "Toyota", models: ["Prius", "RAV4 Hybrid", "Corolla Hybrid"] },
+  { make: "Mercedes-Benz", models: ["EQE", "EQS", "EQA", "EQB"] },
+  { make: "BMW", models: ["i3", "i4", "iX", "iX3"] },
+  { make: "Audi", models: ["Q4 e-tron", "Q8 e-tron", "e-tron GT"] },
+  { make: "Zeekr", models: ["001", "X"] },
+  { make: "Geely", models: ["Geometry C", "Galaxy E5"] },
+  { make: "Changan", models: ["Deepal S7", "Lumin"] },
+  { make: "Leapmotor", models: ["C10", "T03"] },
+  { make: "Avatr", models: ["11", "12"] },
+  { make: "Li Auto", models: ["L7", "L8", "L9"] },
+  { make: "Aito", models: ["M5", "M7", "M9"] },
+  { make: "XPeng", models: ["G6", "P7"] },
+  { make: "Neta", models: ["V", "U"] }
+];

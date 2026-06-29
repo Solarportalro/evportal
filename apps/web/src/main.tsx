@@ -7,8 +7,11 @@ import { AdminPage } from "./pages/AdminPage";
 import { CompanyDashboardPage } from "./pages/CompanyDashboardPage";
 import { CompanyRegisterPage } from "./pages/CompanyRegisterPage";
 import { CustomerDashboardPage } from "./pages/CustomerDashboardPage";
+import { CustomerRequestDetailPage } from "./pages/CustomerRequestDetailPage";
+import { CustomerRequestsPage } from "./pages/CustomerRequestsPage";
 import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
+import { NewCustomerRequestPage } from "./pages/NewCustomerRequestPage";
 import { PrivacyPage } from "./pages/PrivacyPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { TermsPage } from "./pages/TermsPage";
@@ -26,6 +29,9 @@ const router = createBrowserRouter([
       { path: "register", element: <RegisterPage /> },
       { path: "company/register", element: <CompanyRegisterPage /> },
       { path: "customer/dashboard", element: <CustomerDashboardPage /> },
+      { path: "customer/requests", element: <CustomerRequestsPage /> },
+      { path: "customer/requests/new", element: <NewCustomerRequestPage /> },
+      { path: "customer/requests/:id", element: <CustomerRequestDetailPage /> },
       { path: "company/dashboard", element: <CompanyDashboardPage /> },
       { path: "admin", element: <AdminPage /> },
       { path: "privacy", element: <PrivacyPage /> },

@@ -8,6 +8,8 @@
     "register": "Register",
     "companyRegister": "Company register",
     "customerDashboard": "Customer dashboard",
+    "customerRequests": "My requests",
+    "createRequest": "Create request",
     "companyDashboard": "Company dashboard",
     "admin": "Admin",
     "privacy": "Privacy",
@@ -24,6 +26,97 @@
     "loggedOut": "Logged out.",
     "logout": "Logout",
     "failed": "Request failed"
+  },
+  "requests": {
+    "myRequests": "My vehicle requests",
+    "myRequestsDescription": "View the vehicle needs you submitted to EV Portal.",
+    "create": "Create request",
+    "empty": "No vehicle requests yet.",
+    "newRequest": "New vehicle request",
+    "details": "Vehicle request details",
+    "backToRequests": "Back to requests",
+    "mode": "Request mode",
+    "exactMode": "I know the exact vehicle",
+    "recommendationMode": "I need recommendations",
+    "brand": "Brand",
+    "make": "Make",
+    "model": "Model",
+    "selectMake": "Select make",
+    "selectModel": "Select model",
+    "otherNotListed": "Other / not listed",
+    "manualMake": "Manual make",
+    "manualModel": "Manual model",
+    "fuelType": "Fuel type",
+    "bodyType": "Body type",
+    "stockPreference": "Stock/import preference",
+    "yearFrom": "Year from",
+    "yearTo": "Year to",
+    "budgetMin": "Minimum budget",
+    "budgetMax": "Maximum budget",
+    "range": "Desired range, km",
+    "timeline": "Purchase timeline",
+    "hasSolar": "Solar status",
+    "solarInterest": "Solar charging interest",
+    "notes": "Notes",
+    "submit": "Submit request",
+    "loadFailed": "Could not load vehicle requests.",
+    "createFailed": "Could not create vehicle request.",
+    "catalogLoadFailed": "Could not load vehicle catalog."
+  },
+  "requestModes": {
+    "EXACT_MODEL": "Exact model",
+    "RECOMMENDATION": "Recommendation"
+  },
+  "requestStatuses": {
+    "DRAFT": "Draft",
+    "SUBMITTED": "Submitted",
+    "UNDER_REVIEW": "Under review",
+    "ACTIVE": "Active",
+    "OFFERS_RECEIVED": "Offers received",
+    "CUSTOMER_DECIDING": "Customer deciding",
+    "COMPANY_SELECTED": "Company selected",
+    "CLOSED_SUCCESSFULLY": "Closed successfully",
+    "CLOSED_WITHOUT_PURCHASE": "Closed without purchase",
+    "EXPIRED": "Expired",
+    "REJECTED": "Rejected",
+    "CANCELLED": "Cancelled"
+  },
+  "fuelTypes": {
+    "ELECTRIC": "Electric",
+    "PLUG_IN_HYBRID": "Plug-in hybrid",
+    "HYBRID": "Hybrid",
+    "GASOLINE": "Gasoline",
+    "DIESEL": "Diesel"
+  },
+  "bodyTypes": {
+    "SMALL_HATCHBACK": "Small hatchback",
+    "SEDAN": "Sedan",
+    "SUV_CROSSOVER": "SUV / crossover",
+    "VAN_BUSINESS": "Van / business",
+    "OTHER": "Other"
+  },
+  "stockPreferences": {
+    "IN_STOCK_ONLY": "In stock only",
+    "IMPORT_OK": "Import is ok",
+    "BOTH": "Both",
+    "NOT_SURE": "Not sure"
+  },
+  "timelines": {
+    "ASAP": "ASAP",
+    "ONE_TO_THREE_MONTHS": "1-3 months",
+    "JUST_EXPLORING": "Just exploring"
+  },
+  "solarValues": {
+    "YES": "Yes",
+    "NO": "No",
+    "PLANNING": "Planning",
+    "UNKNOWN": "Unknown"
+  },
+  "solarInterestValues": {
+    "YES": "Yes",
+    "MAYBE_LATER": "Maybe later",
+    "NO": "No",
+    "NOT_ASKED": "Not asked"
   },
   "pages": {
     "home": {

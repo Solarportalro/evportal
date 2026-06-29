@@ -8,6 +8,8 @@
     "register": "Регистрация",
     "companyRegister": "Регистрация компании",
     "customerDashboard": "Кабинет клиента",
+    "customerRequests": "Мои заявки",
+    "createRequest": "Создать заявку",
     "companyDashboard": "Кабинет компании",
     "admin": "Админ",
     "privacy": "Конфиденциальность",
@@ -24,6 +26,97 @@
     "loggedOut": "Выход выполнен.",
     "logout": "Выйти",
     "failed": "Запрос не выполнен"
+  },
+  "requests": {
+    "myRequests": "Мои заявки на автомобиль",
+    "myRequestsDescription": "Просматривайте потребности в автомобиле, отправленные в EV Portal.",
+    "create": "Создать заявку",
+    "empty": "Заявок на автомобиль пока нет.",
+    "newRequest": "Новая заявка на автомобиль",
+    "details": "Детали заявки",
+    "backToRequests": "Назад к заявкам",
+    "mode": "Тип заявки",
+    "exactMode": "Я знаю точный автомобиль",
+    "recommendationMode": "Мне нужны рекомендации",
+    "brand": "Марка",
+    "make": "Производитель",
+    "model": "Модель",
+    "selectMake": "Выберите производителя",
+    "selectModel": "Выберите модель",
+    "otherNotListed": "Другое / нет в списке",
+    "manualMake": "Производитель вручную",
+    "manualModel": "Модель вручную",
+    "fuelType": "Тип топлива",
+    "bodyType": "Тип кузова",
+    "stockPreference": "Наличие/импорт",
+    "yearFrom": "Год от",
+    "yearTo": "Год до",
+    "budgetMin": "Минимальный бюджет",
+    "budgetMax": "Максимальный бюджет",
+    "range": "Желаемый запас хода, км",
+    "timeline": "Срок покупки",
+    "hasSolar": "Статус солнечной энергии",
+    "solarInterest": "Интерес к солнечной зарядке",
+    "notes": "Заметки",
+    "submit": "Отправить заявку",
+    "loadFailed": "Не удалось загрузить заявки.",
+    "createFailed": "Не удалось создать заявку.",
+    "catalogLoadFailed": "Не удалось загрузить каталог автомобилей."
+  },
+  "requestModes": {
+    "EXACT_MODEL": "Точная модель",
+    "RECOMMENDATION": "Рекомендация"
+  },
+  "requestStatuses": {
+    "DRAFT": "Черновик",
+    "SUBMITTED": "Отправлена",
+    "UNDER_REVIEW": "На проверке",
+    "ACTIVE": "Активна",
+    "OFFERS_RECEIVED": "Предложения получены",
+    "CUSTOMER_DECIDING": "Клиент выбирает",
+    "COMPANY_SELECTED": "Компания выбрана",
+    "CLOSED_SUCCESSFULLY": "Успешно закрыта",
+    "CLOSED_WITHOUT_PURCHASE": "Закрыта без покупки",
+    "EXPIRED": "Истекла",
+    "REJECTED": "Отклонена",
+    "CANCELLED": "Отменена"
+  },
+  "fuelTypes": {
+    "ELECTRIC": "Электрический",
+    "PLUG_IN_HYBRID": "Подключаемый гибрид",
+    "HYBRID": "Гибрид",
+    "GASOLINE": "Бензин",
+    "DIESEL": "Дизель"
+  },
+  "bodyTypes": {
+    "SMALL_HATCHBACK": "Малый хэтчбек",
+    "SEDAN": "Седан",
+    "SUV_CROSSOVER": "SUV / кроссовер",
+    "VAN_BUSINESS": "Вэн / бизнес",
+    "OTHER": "Другое"
+  },
+  "stockPreferences": {
+    "IN_STOCK_ONLY": "Только в наличии",
+    "IMPORT_OK": "Импорт подходит",
+    "BOTH": "Оба варианта",
+    "NOT_SURE": "Не уверен"
+  },
+  "timelines": {
+    "ASAP": "Как можно скорее",
+    "ONE_TO_THREE_MONTHS": "1-3 месяца",
+    "JUST_EXPLORING": "Пока изучаю"
+  },
+  "solarValues": {
+    "YES": "Да",
+    "NO": "Нет",
+    "PLANNING": "Планирую",
+    "UNKNOWN": "Неизвестно"
+  },
+  "solarInterestValues": {
+    "YES": "Да",
+    "MAYBE_LATER": "Возможно позже",
+    "NO": "Нет",
+    "NOT_ASKED": "Не спрашивали"
   },
   "pages": {
     "home": {
