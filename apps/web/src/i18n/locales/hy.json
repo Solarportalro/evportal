@@ -1,0 +1,54 @@
+{
+  "language": {
+    "select": "Ընտրել լեզուն"
+  },
+  "nav": {
+    "home": "Գլխավոր",
+    "login": "Մուտք",
+    "register": "Գրանցում",
+    "companyRegister": "Ընկերության գրանցում",
+    "customerDashboard": "Հաճախորդի վահանակ",
+    "companyDashboard": "Ընկերության վահանակ",
+    "admin": "Ադմին",
+    "privacy": "Գաղտնիություն",
+    "terms": "Պայմաններ"
+  },
+  "pages": {
+    "home": {
+      "title": "EV Portal",
+      "description": "EV Portal by SolarPortal-ի տեխնիկական հիմքը պատրաստ է ապագա հակադարձ ավտոմեքենաների շուկայի համար։"
+    },
+    "login": {
+      "title": "Մուտք",
+      "description": "Մուտքի էջի placeholder։"
+    },
+    "register": {
+      "title": "Հաճախորդի գրանցում",
+      "description": "Հաճախորդի գրանցման էջի placeholder։"
+    },
+    "companyRegister": {
+      "title": "Ընկերության գրանցում",
+      "description": "Ավտոմեքենաների ընկերության գրանցման էջի placeholder։"
+    },
+    "customerDashboard": {
+      "title": "Հաճախորդի վահանակ",
+      "description": "Հաճախորդի վահանակի placeholder։"
+    },
+    "companyDashboard": {
+      "title": "Ընկերության վահանակ",
+      "description": "Ընկերության վահանակի placeholder։"
+    },
+    "admin": {
+      "title": "Ադմին վահանակ",
+      "description": "Ադմինիստրատորի վահանակի placeholder։"
+    },
+    "privacy": {
+      "title": "Գաղտնիության քաղաքականություն",
+      "description": "Գաղտնիության էջի placeholder։"
+    },
+    "terms": {
+      "title": "Օգտագործման պայմաններ",
+      "description": "Պայմանների էջի placeholder։"
+    }
+  }
+}

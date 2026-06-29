@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CUSTOMER
+  COMPANY_USER
+  COMPANY_ADMIN
+  PLATFORM_ADMIN
+  SUPPORT
+}
+
+enum CompanyType {
+  STOCK_SELLER
+  IMPORTER
+  OFFICIAL_DEALER
+  BROKER
+  MIXED
+}
+
+enum CompanyStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  REJECTED
+}
+
+model GlobalCustomer {
+  id              String   @id @default(cuid())
+  normalizedPhone String?  @unique
+  normalizedEmail String?  @unique
+  fullName        String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  users           User[]
+}
+
+model User {
+  id                String           @id @default(cuid())
+  globalCustomerId  String?
+  globalCustomer    GlobalCustomer?  @relation(fields: [globalCustomerId], references: [id], onDelete: SetNull)
+  email             String?          @unique
+  phone             String?          @unique
+  normalizedEmail   String?
+  normalizedPhone   String?
+  passwordHash      String?
+  role              UserRole
+  preferredLanguage String           @default("hy")
+  isEmailVerified   Boolean          @default(false)
+  isPhoneVerified   Boolean          @default(false)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  companyMemberships CompanyMember[]
+  activityLogs      ActivityLog[]
+}
+
+model Company {
+  id         String          @id @default(cuid())
+  publicName String
+  legalName  String?
+  type       CompanyType
+  status     CompanyStatus   @default(PENDING)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  members    CompanyMember[]
+}
+
+model CompanyMember {
+  id        String   @id @default(cuid())
+  companyId String
+  userId    String
+  role      UserRole @default(COMPANY_USER)
+  createdAt DateTime @default(now())
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, userId])
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  actorUserId String?
+  actorUser   User?    @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+  action      String
+  entityType  String
+  entityId    String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+}

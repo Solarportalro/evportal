@@ -1,0 +1,54 @@
+{
+  "language": {
+    "select": "Выбрать язык"
+  },
+  "nav": {
+    "home": "Главная",
+    "login": "Вход",
+    "register": "Регистрация",
+    "companyRegister": "Регистрация компании",
+    "customerDashboard": "Кабинет клиента",
+    "companyDashboard": "Кабинет компании",
+    "admin": "Админ",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия"
+  },
+  "pages": {
+    "home": {
+      "title": "EV Portal",
+      "description": "Техническая основа EV Portal by SolarPortal готова для будущего обратного автомобильного маркетплейса."
+    },
+    "login": {
+      "title": "Вход",
+      "description": "Placeholder страницы входа."
+    },
+    "register": {
+      "title": "Регистрация клиента",
+      "description": "Placeholder страницы регистрации клиента."
+    },
+    "companyRegister": {
+      "title": "Регистрация компании",
+      "description": "Placeholder страницы регистрации автомобильной компании."
+    },
+    "customerDashboard": {
+      "title": "Кабинет клиента",
+      "description": "Placeholder кабинета клиента."
+    },
+    "companyDashboard": {
+      "title": "Кабинет компании",
+      "description": "Placeholder кабинета компании."
+    },
+    "admin": {
+      "title": "Админ-панель",
+      "description": "Placeholder административной панели."
+    },
+    "privacy": {
+      "title": "Политика конфиденциальности",
+      "description": "Placeholder страницы конфиденциальности."
+    },
+    "terms": {
+      "title": "Условия использования",
+      "description": "Placeholder страницы условий."
+    }
+  }
+}

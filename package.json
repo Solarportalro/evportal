@@ -1,0 +1,19 @@
+{
+  "name": "evportal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EV Portal by SolarPortal monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api \"npm run dev -w apps/web\" \"npm run dev -w apps/api\"",
+    "build": "npm run build -w packages/shared && npm run build -w apps/api && npm run build -w apps/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

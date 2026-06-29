@@ -1,0 +1,54 @@
+{
+  "language": {
+    "select": "Select language"
+  },
+  "nav": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "companyRegister": "Company register",
+    "customerDashboard": "Customer dashboard",
+    "companyDashboard": "Company dashboard",
+    "admin": "Admin",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "pages": {
+    "home": {
+      "title": "EV Portal",
+      "description": "The technical foundation for EV Portal by SolarPortal is ready for the future reverse vehicle marketplace."
+    },
+    "login": {
+      "title": "Login",
+      "description": "Login page placeholder."
+    },
+    "register": {
+      "title": "Customer registration",
+      "description": "Customer registration page placeholder."
+    },
+    "companyRegister": {
+      "title": "Company registration",
+      "description": "Vehicle company registration page placeholder."
+    },
+    "customerDashboard": {
+      "title": "Customer dashboard",
+      "description": "Customer dashboard placeholder."
+    },
+    "companyDashboard": {
+      "title": "Company dashboard",
+      "description": "Company dashboard placeholder."
+    },
+    "admin": {
+      "title": "Admin dashboard",
+      "description": "Admin dashboard placeholder."
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "Privacy page placeholder."
+    },
+    "terms": {
+      "title": "Terms of use",
+      "description": "Terms page placeholder."
+    }
+  }
+}
