@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { config } from "./config.js";
 import { errorResponse } from "./apiResponse.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { authRouter } from "./routes/auth.js";
 import { healthRouter } from "./routes/health.js";
 
 export const app = express();
@@ -26,9 +27,10 @@ app.use(
 );
 
 app.use("/api/health", healthRouter);
+app.use("/api/auth", authRouter);
 
 app.use((_request, response) => {
-  response.status(404).json(errorResponse("Not found"));
+  response.status(404).json(errorResponse("Not found", "NOT_FOUND"));
 });
 
 app.use(errorHandler);

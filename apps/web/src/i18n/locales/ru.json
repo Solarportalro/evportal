@@ -13,6 +13,18 @@
     "privacy": "Конфиденциальность",
     "terms": "Условия"
   },
+  "auth": {
+    "emailOrPhone": "Email или телефон",
+    "email": "Email",
+    "phone": "Телефон",
+    "fullName": "Полное имя",
+    "password": "Пароль",
+    "registered": "Зарегистрирован:",
+    "loggedIn": "Вход выполнен:",
+    "loggedOut": "Выход выполнен.",
+    "logout": "Выйти",
+    "failed": "Запрос не выполнен"
+  },
   "pages": {
     "home": {
       "title": "EV Portal",

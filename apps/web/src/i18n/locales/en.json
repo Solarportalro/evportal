@@ -13,6 +13,18 @@
     "privacy": "Privacy",
     "terms": "Terms"
   },
+  "auth": {
+    "emailOrPhone": "Email or phone",
+    "email": "Email",
+    "phone": "Phone",
+    "fullName": "Full name",
+    "password": "Password",
+    "registered": "Registered:",
+    "loggedIn": "Logged in:",
+    "loggedOut": "Logged out.",
+    "logout": "Logout",
+    "failed": "Request failed"
+  },
   "pages": {
     "home": {
       "title": "EV Portal",

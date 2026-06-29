@@ -13,6 +13,18 @@
     "privacy": "Գաղտնիություն",
     "terms": "Պայմաններ"
   },
+  "auth": {
+    "emailOrPhone": "Էլ․ փոստ կամ հեռախոս",
+    "email": "Էլ․ փոստ",
+    "phone": "Հեռախոս",
+    "fullName": "Անուն ազգանուն",
+    "password": "Գաղտնաբառ",
+    "registered": "Գրանցված է՝",
+    "loggedIn": "Մուտք է գործել՝",
+    "loggedOut": "Ելքը կատարված է։",
+    "logout": "Ելք",
+    "failed": "Հարցումը ձախողվեց"
+  },
   "pages": {
     "home": {
       "title": "EV Portal",

@@ -8,10 +8,16 @@ export function successResponse<T>(data: T, message: string | null = null): ApiR
   };
 }
 
-export function errorResponse(message: string): ApiResponse<null> {
+export function errorResponse(
+  message: string,
+  code = "INTERNAL_ERROR",
+  details?: Record<string, unknown>
+): ApiResponse<null> {
   return {
     success: false,
     data: null,
-    message
+    message,
+    code,
+    details
   };
 }
