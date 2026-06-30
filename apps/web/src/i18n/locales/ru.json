@@ -482,5 +482,29 @@
     "TESLA_NACS": "Tesla NACS",
     "OTHER": "Другое",
     "UNKNOWN": "Неизвестно"
+  },
+  "adminReports": {
+    "title": "Отчеты",
+    "description": "Внутренняя рыночная и операционная отчетность EV Portal.",
+    "overview": "Обзор",
+    "demand": "Спрос",
+    "offers": "Предложения",
+    "companyPerformance": "Показатели компаний",
+    "solarEv": "Солнечная энергия + EV",
+    "funnelCounts": "Количество по воронке",
+    "funnelConversions": "Конверсии воронки, %",
+    "dateFrom": "Дата с",
+    "dateTo": "Дата до",
+    "applyFilters": "Применить",
+    "clearFilters": "Очистить",
+    "loadFailed": "Не удалось загрузить отчеты.",
+    "company": "Компания",
+    "status": "Статус",
+    "offersSubmitted": "Предложения",
+    "selectedOffers": "Выбранные предложения",
+    "contactReveals": "Открытые контакты",
+    "selectionRate": "Процент выбора",
+    "averageResponseTimeHours": "Среднее время ответа, ч",
+    "noCompanies": "Данных по компаниям пока нет."
   }
 }

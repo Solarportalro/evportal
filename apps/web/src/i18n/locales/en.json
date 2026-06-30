@@ -482,5 +482,29 @@
     "TESLA_NACS": "Tesla NACS",
     "OTHER": "Other",
     "UNKNOWN": "Unknown"
+  },
+  "adminReports": {
+    "title": "Reports",
+    "description": "Internal market and operations reporting for EV Portal.",
+    "overview": "Overview",
+    "demand": "Demand",
+    "offers": "Offers",
+    "companyPerformance": "Company Performance",
+    "solarEv": "Solar + EV",
+    "funnelCounts": "Funnel counts",
+    "funnelConversions": "Funnel conversions, %",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "applyFilters": "Apply filters",
+    "clearFilters": "Clear filters",
+    "loadFailed": "Could not load reports.",
+    "company": "Company",
+    "status": "Status",
+    "offersSubmitted": "Offers submitted",
+    "selectedOffers": "Selected offers",
+    "contactReveals": "Contact reveals",
+    "selectionRate": "Selection rate",
+    "averageResponseTimeHours": "Avg. response hours",
+    "noCompanies": "No company performance data yet."
   }
 }

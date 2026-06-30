@@ -482,5 +482,29 @@
     "TESLA_NACS": "Tesla NACS",
     "OTHER": "Այլ",
     "UNKNOWN": "Անհայտ"
+  },
+  "adminReports": {
+    "title": "Հաշվետվություններ",
+    "description": "EV Portal-ի ներքին շուկայի և գործառնական ցուցանիշներ։",
+    "overview": "Ընդհանուր",
+    "demand": "Պահանջարկ",
+    "offers": "Առաջարկներ",
+    "companyPerformance": "Ընկերությունների ցուցանիշներ",
+    "solarEv": "Արևային + EV",
+    "funnelCounts": "Ձագարի քանակներ",
+    "funnelConversions": "Ձագարի փոխակերպումներ, %",
+    "dateFrom": "Սկսած ամսաթիվ",
+    "dateTo": "Մինչև ամսաթիվ",
+    "applyFilters": "Կիրառել",
+    "clearFilters": "Մաքրել",
+    "loadFailed": "Չհաջողվեց բեռնել հաշվետվությունները։",
+    "company": "Ընկերություն",
+    "status": "Կարգավիճակ",
+    "offersSubmitted": "Ուղարկված առաջարկներ",
+    "selectedOffers": "Ընտրված առաջարկներ",
+    "contactReveals": "Բացված կոնտակտներ",
+    "selectionRate": "Ընտրման տոկոս",
+    "averageResponseTimeHours": "Միջին արձագանք, ժամ",
+    "noCompanies": "Ընկերությունների տվյալներ դեռ չկան։"
   }
 }
