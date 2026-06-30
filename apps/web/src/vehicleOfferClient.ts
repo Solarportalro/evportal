@@ -1,4 +1,4 @@
-import type { ApiResponse, VehicleMake, VehicleModel, VehicleOffer } from "@evportal/shared";
+import type { ApiResponse, ContactReveal, VehicleMake, VehicleModel, VehicleOffer } from "@evportal/shared";
 import { getAccessToken } from "./authClient";
 import type { VehicleRequest } from "./vehicleRequestClient";
 
@@ -14,6 +14,18 @@ export type VehicleOfferWithRelations = VehicleOffer & {
     status: string;
   };
   request?: VehicleRequest;
+};
+
+export type ContactRevealWithRelations = ContactReveal & {
+  company?: {
+    id: string;
+    publicName: string;
+  };
+  offer?: VehicleOfferWithRelations;
+  request?: {
+    id: string;
+    status: string;
+  };
 };
 
 export type VehicleOfferInput = {
@@ -109,6 +121,10 @@ export function withdrawCompanyOffer(offerId: string) {
   });
 }
 
+export function getCompanyRequestContact(requestId: string) {
+  return offerRequest<{ contactReveal: ContactReveal }>(`/company/vehicle-requests/${requestId}/contact`);
+}
+
 export function listCustomerOffersForRequest(requestId: string) {
   return offerRequest<{ vehicleOffers: VehicleOfferWithRelations[] }>(`/customer/vehicle-requests/${requestId}/offers`);
 }
@@ -117,10 +133,29 @@ export function getCustomerOffer(offerId: string) {
   return offerRequest<{ vehicleOffer: VehicleOfferWithRelations }>(`/customer/vehicle-offers/${offerId}`);
 }
 
+export function selectCustomerOffer(offerId: string) {
+  return offerRequest<{
+    selectedOffer: VehicleOfferWithRelations;
+    vehicleRequest: { id: string; status: string };
+    contactReveal: ContactReveal;
+  }>(`/customer/vehicle-offers/${offerId}/select`, {
+    method: "POST",
+    body: JSON.stringify({ confirmContactReveal: true })
+  });
+}
+
 export function listAdminVehicleOffers() {
   return offerRequest<{ vehicleOffers: VehicleOfferWithRelations[] }>("/admin/vehicle-offers");
 }
 
 export function getAdminVehicleOffer(offerId: string) {
   return offerRequest<{ vehicleOffer: VehicleOfferWithRelations }>(`/admin/vehicle-offers/${offerId}`);
+}
+
+export function listAdminContactReveals() {
+  return offerRequest<{ contactReveals: ContactRevealWithRelations[] }>("/admin/contact-reveals");
+}
+
+export function getAdminContactReveal(revealId: string) {
+  return offerRequest<{ contactReveal: ContactRevealWithRelations }>(`/admin/contact-reveals/${revealId}`);
 }

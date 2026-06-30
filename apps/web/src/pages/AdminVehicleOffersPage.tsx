@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { listAdminVehicleOffers, type VehicleOfferWithRelations } from "../vehicleOfferClient";
+import { listAdminContactReveals, listAdminVehicleOffers, type ContactRevealWithRelations, type VehicleOfferWithRelations } from "../vehicleOfferClient";
 
 export function AdminVehicleOffersPage() {
   const { t } = useTranslation();
   const [offers, setOffers] = useState<VehicleOfferWithRelations[]>([]);
+  const [contactReveals, setContactReveals] = useState<ContactRevealWithRelations[]>([]);
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    listAdminVehicleOffers()
-      .then((result) => setOffers(result.vehicleOffers))
+    Promise.all([listAdminVehicleOffers(), listAdminContactReveals()])
+      .then(([offersResult, revealsResult]) => {
+        setOffers(offersResult.vehicleOffers);
+        setContactReveals(revealsResult.contactReveals);
+      })
       .catch((error: unknown) => setMessage(error instanceof Error ? error.message : t("offers.loadFailed")));
   }, [t]);
 
@@ -42,6 +46,19 @@ export function AdminVehicleOffersPage() {
           </tbody>
         </table>
         {!offers.length && !message ? <p className="p-4 text-slate-600">{t("offers.empty")}</p> : null}
+      </div>
+      <h2 className="mt-8 text-xl font-semibold text-slate-950">{t("contactReveal.adminTitle")}</h2>
+      <div className="mt-4 grid gap-3">
+        {contactReveals.map((reveal) => (
+          <div className="rounded border border-slate-200 bg-white p-4 text-sm" key={reveal.id}>
+            <p className="font-medium text-slate-950">{reveal.company?.publicName ?? "—"}</p>
+            <p className="mt-1 text-slate-600">
+              {reveal.customerName ?? "—"} · {reveal.customerPhone ?? reveal.customerEmail ?? "—"} ·{" "}
+              {new Date(reveal.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        ))}
+        {!contactReveals.length ? <p className="text-slate-600">{t("contactReveal.adminEmpty")}</p> : null}
       </div>
     </section>
   );

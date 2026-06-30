@@ -164,6 +164,20 @@ export type VehicleOffer = {
   updatedAt: string;
 };
 
+export type ContactReveal = {
+  id: string;
+  requestId: string;
+  offerId: string;
+  companyId: string;
+  customerId: string;
+  revealedToUserId: string | null;
+  consentText: string;
+  customerName: string | null;
+  customerEmail: string | null;
+  customerPhone: string | null;
+  createdAt: string;
+};
+
 export type ApiResponse<T> = {
   success: boolean;
   data: T | null;

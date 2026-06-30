@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import type { ContactReveal } from "@evportal/shared";
 import type { VehicleRequest } from "../vehicleRequestClient";
-import { getCompanyVehicleRequest, listCompanyOffersForRequest, type VehicleOfferWithRelations } from "../vehicleOfferClient";
+import {
+  getCompanyRequestContact,
+  getCompanyVehicleRequest,
+  listCompanyOffersForRequest,
+  type VehicleOfferWithRelations
+} from "../vehicleOfferClient";
 
 export function CompanyRequestDetailPage() {
   const { requestId } = useParams();
   const { t } = useTranslation();
   const [request, setRequest] = useState<VehicleRequest | null>(null);
+  const [contact, setContact] = useState<ContactReveal | null>(null);
   const [offers, setOffers] = useState<VehicleOfferWithRelations[]>([]);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -20,6 +27,13 @@ export function CompanyRequestDetailPage() {
       .then(([requestResult, offersResult]) => {
         setRequest(requestResult.vehicleRequest);
         setOffers(offersResult.vehicleOffers);
+        if (requestResult.vehicleRequest.hasContactAccess) {
+          getCompanyRequestContact(requestId)
+            .then((result) => setContact(result.contactReveal))
+            .catch((error: unknown) => setMessage(error instanceof Error ? error.message : t("contactReveal.contactLoadFailed")));
+        } else {
+          setContact(null);
+        }
       })
       .catch((error: unknown) => setMessage(error instanceof Error ? error.message : t("offers.loadFailed")));
   }, [requestId, t]);
@@ -59,6 +73,31 @@ export function CompanyRequestDetailPage() {
           </dl>
         </div>
       ) : null}
+      <div className="mt-6 rounded border border-slate-200 bg-white p-5">
+        <h2 className="text-xl font-semibold text-slate-950">{t("contactReveal.companyContactTitle")}</h2>
+        {request?.hasContactAccess && contact ? (
+          <dl className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+              <dt className="text-xs font-medium uppercase text-slate-500">{t("auth.fullName")}</dt>
+              <dd className="mt-1 text-sm text-slate-900">{contact.customerName ?? "—"}</dd>
+            </div>
+            <div>
+              <dt className="text-xs font-medium uppercase text-slate-500">{t("auth.phone")}</dt>
+              <dd className="mt-1 text-sm text-slate-900">{contact.customerPhone ?? "—"}</dd>
+            </div>
+            <div>
+              <dt className="text-xs font-medium uppercase text-slate-500">{t("auth.email")}</dt>
+              <dd className="mt-1 text-sm text-slate-900">{contact.customerEmail ?? "—"}</dd>
+            </div>
+            <div>
+              <dt className="text-xs font-medium uppercase text-slate-500">{t("contactReveal.revealDate")}</dt>
+              <dd className="mt-1 text-sm text-slate-900">{new Date(contact.createdAt).toLocaleDateString()}</dd>
+            </div>
+          </dl>
+        ) : (
+          <p className="mt-3 text-sm text-slate-600">{t("contactReveal.companyNoAccess")}</p>
+        )}
+      </div>
       <h2 className="mt-8 text-xl font-semibold text-slate-950">{t("offers.myOffers")}</h2>
       <div className="mt-4 grid gap-3">
         {offers.map((offer) => (

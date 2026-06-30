@@ -152,6 +152,8 @@ model User {
   emailVerificationTokens EmailVerificationToken[]
   vehicleRequests         VehicleRequest[]
   submittedVehicleOffers  VehicleOffer[]
+  contactRevealsAsCustomer ContactReveal[] @relation("ContactRevealCustomer")
+  contactRevealsReceived   ContactReveal[] @relation("ContactRevealRevealedTo")
 
   @@index([normalizedEmail])
   @@index([normalizedPhone])
@@ -167,6 +169,7 @@ model Company {
   updatedAt  DateTime        @updatedAt
   members    CompanyMember[]
   vehicleOffers VehicleOffer[]
+  contactReveals ContactReveal[]
 }
 
 model CompanyMember {
@@ -287,6 +290,7 @@ model VehicleRequest {
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
   offers                VehicleOffer[]
+  contactReveal         ContactReveal?
 
   @@index([customerId])
   @@index([status])
@@ -344,6 +348,7 @@ model VehicleOffer {
   notes                          String?
   createdAt                      DateTime                  @default(now())
   updatedAt                      DateTime                  @updatedAt
+  contactReveal                  ContactReveal?
 
   @@index([requestId])
   @@index([companyId])
@@ -353,4 +358,28 @@ model VehicleOffer {
   @@index([createdAt])
   @@index([makeId])
   @@index([modelId])
+}
+
+model ContactReveal {
+  id               String         @id @default(cuid())
+  requestId        String         @unique
+  request          VehicleRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  offerId          String         @unique
+  offer            VehicleOffer   @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  companyId        String
+  company          Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  customerId       String
+  customer         User           @relation("ContactRevealCustomer", fields: [customerId], references: [id], onDelete: Cascade)
+  revealedToUserId String?
+  revealedToUser   User?          @relation("ContactRevealRevealedTo", fields: [revealedToUserId], references: [id], onDelete: SetNull)
+  consentText      String
+  customerName     String?
+  customerEmail    String?
+  customerPhone    String?
+  createdAt        DateTime       @default(now())
+
+  @@index([offerId])
+  @@index([companyId])
+  @@index([customerId])
+  @@index([createdAt])
 }

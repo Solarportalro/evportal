@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { listCustomerOffersForRequest, type VehicleOfferWithRelations } from "../vehicleOfferClient";
+import { listCustomerOffersForRequest, selectCustomerOffer, type VehicleOfferWithRelations } from "../vehicleOfferClient";
 
 export function CustomerRequestOffersPage() {
   const { requestId } = useParams();
   const { t } = useTranslation();
   const [offers, setOffers] = useState<VehicleOfferWithRelations[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+  const hasSelectedOffer = offers.some((offer) => offer.status === "SELECTED");
 
-  useEffect(() => {
+  function loadOffers() {
     if (!requestId) {
       return;
     }
@@ -17,7 +18,25 @@ export function CustomerRequestOffersPage() {
     listCustomerOffersForRequest(requestId)
       .then((result) => setOffers(result.vehicleOffers))
       .catch((error: unknown) => setMessage(error instanceof Error ? error.message : t("offers.loadFailed")));
+  }
+
+  useEffect(() => {
+    loadOffers();
   }, [requestId, t]);
+
+  async function handleSelectOffer(offerId: string) {
+    if (!window.confirm(t("contactReveal.confirmText"))) {
+      return;
+    }
+
+    try {
+      await selectCustomerOffer(offerId);
+      setMessage(t("contactReveal.successMessage"));
+      loadOffers();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : t("contactReveal.selectFailed"));
+    }
+  }
 
   return (
     <section>
@@ -46,6 +65,23 @@ export function CustomerRequestOffersPage() {
               <div><dt className="text-slate-500">{t("offers.tradeInAccepted")}</dt><dd>{offer.tradeInAccepted ? t("common.yes") : t("common.no")}</dd></div>
             </dl>
             {offer.notes ? <p className="mt-4 text-sm text-slate-700">{offer.notes}</p> : null}
+            <div className="mt-4">
+              {offer.status === "SELECTED" ? (
+                <p className="rounded bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800">
+                  {t("contactReveal.selectedState")}
+                </p>
+              ) : ["SUBMITTED", "UPDATED"].includes(offer.status) && !hasSelectedOffer ? (
+                <button
+                  className="rounded bg-emerald-700 px-4 py-2 text-sm font-medium text-white"
+                  onClick={() => void handleSelectOffer(offer.id)}
+                  type="button"
+                >
+                  {t("contactReveal.interestedButton")}
+                </button>
+              ) : (
+                <p className="text-sm text-slate-500">{t(`offerStatuses.${offer.status}`)}</p>
+              )}
+            </div>
           </article>
         ))}
         {!offers.length && !message ? <p className="text-slate-600">{t("offers.empty")}</p> : null}

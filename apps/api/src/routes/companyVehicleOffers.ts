@@ -11,6 +11,7 @@ import { requireAuth } from "../middleware/auth.js";
 import { AppError } from "../middleware/errorHandler.js";
 import {
   createCompanyOffer,
+  getCompanyRequestContact,
   getCompanyVehicleRequest,
   listCompanyOffers,
   listCompanyOffersForRequest,
@@ -146,6 +147,18 @@ companyVehicleOffersRouter.get("/vehicle-requests/:requestId", async (request, r
     }
 
     response.json(successResponse({ vehicleRequest: await getCompanyVehicleRequest(request.user, request.params.requestId) }));
+  } catch (error) {
+    next(error);
+  }
+});
+
+companyVehicleOffersRouter.get("/vehicle-requests/:requestId/contact", async (request, response, next) => {
+  try {
+    if (!request.user) {
+      throw new AppError("Authentication required", 401, "AUTH_REQUIRED");
+    }
+
+    response.json(successResponse({ contactReveal: await getCompanyRequestContact(request.user, request.params.requestId) }));
   } catch (error) {
     next(error);
   }

@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { config } from "./config.js";
 import { errorResponse } from "./apiResponse.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { adminContactRevealsRouter } from "./routes/adminContactReveals.js";
 import { adminVehicleCatalogRouter } from "./routes/adminVehicleCatalog.js";
 import { adminVehicleOffersRouter } from "./routes/adminVehicleOffers.js";
 import { authRouter } from "./routes/auth.js";
@@ -34,6 +35,7 @@ app.use(
 
 app.use("/api/health", healthRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/admin/contact-reveals", adminContactRevealsRouter);
 app.use("/api/admin/vehicle-catalog", adminVehicleCatalogRouter);
 app.use("/api/admin/vehicle-offers", adminVehicleOffersRouter);
 app.use("/api/company", companyVehicleOffersRouter);

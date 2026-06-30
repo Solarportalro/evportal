@@ -34,6 +34,7 @@ export type VehicleRequest = {
   hasSolar: string;
   solarChargingInterest: string;
   notes: string | null;
+  hasContactAccess?: boolean;
   createdAt: string;
   updatedAt: string;
 };

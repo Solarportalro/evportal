@@ -198,6 +198,19 @@
     "title": "Vehicle offers",
     "description": "Review all company offers submitted for customer vehicle requests."
   },
+  "contactReveal": {
+    "interestedButton": "I'm interested in this offer",
+    "confirmText": "By continuing, your contact information will be shared only with this company so they can contact you about this offer. Other companies will not receive your contact information.",
+    "successMessage": "Your contact information has been shared with the selected company. They may contact you about this offer.",
+    "selectedState": "Selected offer. Your contact information was shared with this company.",
+    "selectFailed": "Could not select this offer.",
+    "companyContactTitle": "Customer contact",
+    "companyNoAccess": "Customer contact will be available only if the customer selects one of your offers.",
+    "contactLoadFailed": "Could not load customer contact.",
+    "revealDate": "Reveal date",
+    "adminTitle": "Contact reveals",
+    "adminEmpty": "No contact reveals yet."
+  },
   "adminCatalog": {
     "title": "Vehicle catalog",
     "description": "Manage vehicle makes and models used by customer requests.",
