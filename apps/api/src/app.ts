@@ -16,6 +16,7 @@ import { companyVehicleOffersRouter } from "./routes/companyVehicleOffers.js";
 import { companyProfileRouter } from "./routes/companyProfile.js";
 import { customerVehicleOffersRouter } from "./routes/customerVehicleOffers.js";
 import { healthRouter } from "./routes/health.js";
+import { publicVehicleRequestsRouter } from "./routes/publicVehicleRequests.js";
 import { vehicleCatalogRouter } from "./routes/vehicleCatalog.js";
 import { vehicleRequestsRouter } from "./routes/vehicleRequests.js";
 
@@ -39,6 +40,7 @@ app.use(
 
 app.use("/api/health", healthRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/public", publicVehicleRequestsRouter);
 app.use("/api/admin/companies", adminCompaniesRouter);
 app.use("/api/admin/contact-reveals", adminContactRevealsRouter);
 app.use("/api/admin/users", adminUsersRouter);

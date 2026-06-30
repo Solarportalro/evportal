@@ -59,6 +59,13 @@ export type CreateVehicleRequestInput = {
   notes?: string;
 };
 
+export type PublicVehicleRequestInput = CreateVehicleRequestInput & {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  preferredLanguage?: string;
+};
+
 async function vehicleRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
   const accessToken = getAccessToken();
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -88,6 +95,19 @@ export function getVehicleRequest(id: string) {
 
 export function createVehicleRequest(input: CreateVehicleRequestInput) {
   return vehicleRequest<{ vehicleRequest: VehicleRequest }>("/vehicle-requests", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export function createPublicVehicleRequest(input: PublicVehicleRequestInput) {
+  return vehicleRequest<{
+    vehicleRequest: VehicleRequest;
+    userCreated: boolean;
+    accountNeedsPassword: boolean;
+    devSetPasswordToken?: string;
+    devSetPasswordUrl?: string;
+  }>("/public/vehicle-requests", {
     method: "POST",
     body: JSON.stringify(input)
   });

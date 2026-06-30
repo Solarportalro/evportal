@@ -122,6 +122,16 @@
     "createFailed": "Could not create vehicle request.",
     "catalogLoadFailed": "Could not load vehicle catalog."
   },
+  "publicRequest": {
+    "title": "Request vehicle offers",
+    "description": "Tell us what vehicle you need. EV Portal will review the request before companies can send offers.",
+    "homeLink": "Request vehicle offers",
+    "submit": "Submit request",
+    "success": "Your request has been submitted and is waiting for review.",
+    "createFailed": "Could not submit your request.",
+    "devSetPassword": "Dev: Set password",
+    "accountInstructions": "We will contact you or send account access instructions."
+  },
   "requestModes": {
     "EXACT_MODEL": "Exact model",
     "RECOMMENDATION": "Recommendation"

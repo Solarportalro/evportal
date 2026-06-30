@@ -10,9 +10,13 @@ import {
   VehicleRequestMode,
   VehicleRequestStatus
 } from "@prisma/client";
+import { config } from "../../config.js";
 import { AppError } from "../../middleware/errorHandler.js";
 import type { AuthenticatedUser } from "../../middleware/auth.js";
 import { prisma } from "../../prisma.js";
+import { findOrCreateGlobalCustomer } from "../global-customers/service.js";
+import { addDuration, generateRandomToken, hashToken } from "../../utils/security.js";
+import { normalizeIdentityInput } from "../../utils/identity.js";
 
 export type CreateVehicleRequestInput = {
   requestMode: VehicleRequestMode;
@@ -32,6 +36,13 @@ export type CreateVehicleRequestInput = {
   hasSolar: HasSolar;
   solarChargingInterest?: SolarChargingInterest;
   notes?: string | null;
+};
+
+export type PublicVehicleRequestInput = CreateVehicleRequestInput & {
+  fullName?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  preferredLanguage?: string | null;
 };
 
 const ADMIN_READ_ROLES = new Set<UserRole>([UserRole.PLATFORM_ADMIN, UserRole.SUPPORT]);
@@ -120,6 +131,43 @@ function normalizeCreateInput(input: CreateVehicleRequestInput): CreateVehicleRe
   };
 }
 
+export function validateVehicleRequestInput(input: CreateVehicleRequestInput) {
+  if (input.budgetMin && input.budgetMax && input.budgetMin > input.budgetMax) {
+    throw new AppError("budgetMin must not exceed budgetMax", 400, "INVALID_BUDGET_RANGE");
+  }
+
+  if (input.preferredYearFrom && input.preferredYearTo && input.preferredYearFrom > input.preferredYearTo) {
+    throw new AppError("preferredYearFrom must not exceed preferredYearTo", 400, "INVALID_YEAR_RANGE");
+  }
+
+  if (input.requestMode === VehicleRequestMode.EXACT_MODEL) {
+    const hasCatalogVehicle = Boolean(input.makeId?.trim() && input.modelId?.trim());
+    const hasManualVehicle = Boolean(input.manualMake?.trim() && input.manualModel?.trim());
+
+    if (!hasCatalogVehicle && !hasManualVehicle) {
+      throw new AppError("Exact-model requests require either catalog make/model or manual make/model", 400, "EXACT_MODEL_VEHICLE_REQUIRED");
+    }
+
+    if ((input.makeId?.trim() && !input.modelId?.trim()) || (!input.makeId?.trim() && input.modelId?.trim())) {
+      throw new AppError("Both makeId and modelId are required when using catalog selection", 400, "CATALOG_SELECTION_INCOMPLETE");
+    }
+
+    if ((input.manualMake?.trim() && !input.manualModel?.trim()) || (!input.manualMake?.trim() && input.manualModel?.trim())) {
+      throw new AppError("Both manualMake and manualModel are required when using manual selection", 400, "MANUAL_SELECTION_INCOMPLETE");
+    }
+  }
+
+  if (input.requestMode === VehicleRequestMode.RECOMMENDATION) {
+    if (!input.budgetMin && !input.budgetMax) {
+      throw new AppError("budgetMin or budgetMax is required for recommendation requests", 400, "RECOMMENDATION_BUDGET_REQUIRED");
+    }
+
+    if (!input.bodyType) {
+      throw new AppError("bodyType is required for recommendation requests", 400, "RECOMMENDATION_BODY_TYPE_REQUIRED");
+    }
+  }
+}
+
 async function validateCatalogSelection(input: CreateVehicleRequestInput) {
   if (!input.makeId && !input.modelId) {
     return;
@@ -169,11 +217,16 @@ export async function createVehicleRequest(user: AuthenticatedUser, input: Creat
   }
 
   const data = normalizeCreateInput(input);
+  validateVehicleRequestInput(data);
   await validateCatalogSelection(data);
 
+  return createVehicleRequestForCustomer(user.id, data);
+}
+
+async function createVehicleRequestForCustomer(customerId: string, data: CreateVehicleRequestInput) {
   const request = await prisma.vehicleRequest.create({
     data: {
-      customerId: user.id,
+      customerId,
       requestMode: data.requestMode,
       fuelType: data.fuelType,
       makeId: data.makeId,
@@ -220,6 +273,184 @@ export async function createVehicleRequest(user: AuthenticatedUser, input: Creat
   });
 
   return withDisplayVehicle(request);
+}
+
+export async function createPublicVehicleRequest(input: PublicVehicleRequestInput) {
+  const normalized = normalizeIdentityInput(input);
+
+  if (!normalized.normalizedEmail && !normalized.normalizedPhone) {
+    throw new AppError("Valid email or Armenian phone number is required", 400, "IDENTIFIER_REQUIRED");
+  }
+
+  const data = normalizeCreateInput(input);
+  validateVehicleRequestInput(data);
+  await validateCatalogSelection(data);
+
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      OR: [
+        ...(normalized.normalizedPhone ? [{ normalizedPhone: normalized.normalizedPhone }] : []),
+        ...(normalized.normalizedEmail ? [{ normalizedEmail: normalized.normalizedEmail }] : [])
+      ]
+    }
+  });
+
+  if (existingUser && existingUser.role !== UserRole.CUSTOMER) {
+    throw new AppError("Existing account cannot be used for customer request", 409, "USER_ROLE_NOT_CUSTOMER");
+  }
+
+  if (existingUser && !existingUser.isActive) {
+    throw new AppError("User is disabled", 403, "USER_DISABLED");
+  }
+
+  const globalCustomer = await findOrCreateGlobalCustomer(input);
+  let userCreated = false;
+
+  const result = await prisma.$transaction(async (transactionClient) => {
+    const user =
+      existingUser ??
+      (await transactionClient.user.create({
+        data: {
+          globalCustomerId: globalCustomer?.id,
+          email: normalized.normalizedEmail,
+          phone: normalized.normalizedPhone,
+          normalizedEmail: normalized.normalizedEmail,
+          normalizedPhone: normalized.normalizedPhone,
+          passwordHash: null,
+          role: UserRole.CUSTOMER,
+          preferredLanguage: input.preferredLanguage?.trim() || "hy"
+        }
+      }));
+
+    userCreated = !existingUser;
+
+    const updatedUser =
+      existingUser && ((!existingUser.globalCustomerId && globalCustomer?.id) || (!existingUser.email && normalized.normalizedEmail) || (!existingUser.phone && normalized.normalizedPhone))
+        ? await transactionClient.user.update({
+            where: { id: existingUser.id },
+            data: {
+              globalCustomerId: existingUser.globalCustomerId ?? globalCustomer?.id,
+              email: existingUser.email ?? normalized.normalizedEmail,
+              phone: existingUser.phone ?? normalized.normalizedPhone,
+              normalizedEmail: existingUser.normalizedEmail ?? normalized.normalizedEmail,
+              normalizedPhone: existingUser.normalizedPhone ?? normalized.normalizedPhone
+            }
+          })
+        : user;
+
+    const vehicleRequest = await transactionClient.vehicleRequest.create({
+      data: {
+        customerId: updatedUser.id,
+        requestMode: data.requestMode,
+        status: VehicleRequestStatus.SUBMITTED,
+        fuelType: data.fuelType,
+        makeId: data.makeId,
+        modelId: data.modelId,
+        manualMake: data.manualMake,
+        manualModel: data.manualModel,
+        preferredYearFrom: data.preferredYearFrom,
+        preferredYearTo: data.preferredYearTo,
+        bodyType: data.bodyType,
+        budgetMin: data.budgetMin,
+        budgetMax: data.budgetMax,
+        desiredRangeKm: data.desiredRangeKm,
+        stockImportPreference: data.stockImportPreference,
+        purchaseTimeline: data.purchaseTimeline,
+        hasSolar: data.hasSolar,
+        solarChargingInterest: data.solarChargingInterest,
+        notes: data.notes
+      },
+      include: {
+        make: {
+          select: {
+            id: true,
+            name: true,
+            slug: true
+          }
+        },
+        model: {
+          select: {
+            id: true,
+            makeId: true,
+            name: true,
+            slug: true
+          }
+        },
+        customer: {
+          select: {
+            id: true,
+            email: true,
+            phone: true,
+            role: true
+          }
+        }
+      }
+    });
+
+    let rawSetPasswordToken: string | null = null;
+
+    if (!updatedUser.passwordHash) {
+      rawSetPasswordToken = generateRandomToken();
+      await transactionClient.setPasswordToken.create({
+        data: {
+          userId: updatedUser.id,
+          tokenHash: hashToken(rawSetPasswordToken),
+          expiresAt: addDuration(new Date(), config.SET_PASSWORD_TOKEN_EXPIRES_IN)
+        }
+      });
+    }
+
+    const accountNeedsPassword = !updatedUser.passwordHash;
+
+    await transactionClient.activityLog.create({
+      data: {
+        actorUserId: updatedUser.id,
+        action: "PUBLIC_VEHICLE_REQUEST_CREATED",
+        entityType: "VehicleRequest",
+        entityId: vehicleRequest.id,
+        metadata: {
+          userCreated,
+          accountNeedsPassword,
+          requestId: vehicleRequest.id,
+          source: "public_form"
+        }
+      }
+    });
+
+    if (userCreated) {
+      await transactionClient.activityLog.create({
+        data: {
+          actorUserId: updatedUser.id,
+          action: "USER_CREATED_FROM_PUBLIC_REQUEST",
+          entityType: "User",
+          entityId: updatedUser.id,
+          metadata: {
+            requestId: vehicleRequest.id,
+            source: "public_form"
+          }
+        }
+      });
+    }
+
+    return {
+      vehicleRequest,
+      userCreated,
+      accountNeedsPassword,
+      rawSetPasswordToken
+    };
+  });
+
+  return {
+    vehicleRequest: withDisplayVehicle(result.vehicleRequest),
+    userCreated: result.userCreated,
+    accountNeedsPassword: result.accountNeedsPassword,
+    ...(config.NODE_ENV !== "production" && result.rawSetPasswordToken
+      ? {
+          devSetPasswordToken: result.rawSetPasswordToken,
+          devSetPasswordUrl: `${config.FRONTEND_URL}/login?setPasswordToken=${encodeURIComponent(result.rawSetPasswordToken)}`
+        }
+      : {})
+  };
 }
 
 export async function listVehicleRequests(user: AuthenticatedUser) {

@@ -24,6 +24,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { NewCustomerRequestPage } from "./pages/NewCustomerRequestPage";
 import { NewCompanyOfferPage } from "./pages/NewCompanyOfferPage";
 import { PrivacyPage } from "./pages/PrivacyPage";
+import { PublicVehicleRequestPage } from "./pages/PublicVehicleRequestPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { TermsPage } from "./pages/TermsPage";
 import "./styles.css";
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
+      { path: "request/new", element: <PublicVehicleRequestPage /> },
       { path: "company/register", element: <CompanyRegisterPage /> },
       { path: "customer/dashboard", element: <CustomerDashboardPage /> },
       { path: "customer/requests", element: <CustomerRequestsPage /> },
