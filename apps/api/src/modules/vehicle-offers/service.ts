@@ -54,12 +54,15 @@ export type VehicleOfferUpdateInput = Partial<VehicleOfferInput>;
 
 const COMPANY_ROLES = new Set<UserRole>([UserRole.COMPANY_USER, UserRole.COMPANY_ADMIN]);
 const ADMIN_ROLES = new Set<UserRole>([UserRole.PLATFORM_ADMIN, UserRole.SUPPORT]);
-const COMPANY_VISIBLE_REQUEST_STATUSES = [
+const COMPANY_VISIBLE_REQUEST_STATUSES: VehicleRequestStatus[] = [
   VehicleRequestStatus.ACTIVE,
   VehicleRequestStatus.OFFERS_RECEIVED,
-  VehicleRequestStatus.CUSTOMER_DECIDING,
-  VehicleRequestStatus.SUBMITTED,
-  VehicleRequestStatus.COMPANY_SELECTED
+  VehicleRequestStatus.CUSTOMER_DECIDING
+];
+const COMPANY_OFFERABLE_REQUEST_STATUSES: VehicleRequestStatus[] = [
+  VehicleRequestStatus.ACTIVE,
+  VehicleRequestStatus.OFFERS_RECEIVED,
+  VehicleRequestStatus.CUSTOMER_DECIDING
 ];
 const SELECTABLE_OFFER_STATUSES: VehicleOfferStatus[] = [VehicleOfferStatus.SUBMITTED, VehicleOfferStatus.UPDATED];
 const ACTIVE_OFFER_STATUSES: VehicleOfferStatus[] = [
@@ -267,7 +270,17 @@ async function getVisibleCompanyRequest(requestId: string, companyId?: string) {
   const vehicleRequest = await prisma.vehicleRequest.findFirst({
     where: {
       id: requestId,
-      status: { in: COMPANY_VISIBLE_REQUEST_STATUSES }
+      OR: [
+        { status: { in: COMPANY_VISIBLE_REQUEST_STATUSES } },
+        ...(companyId
+          ? [
+              {
+                status: VehicleRequestStatus.COMPANY_SELECTED,
+                contactReveal: { companyId }
+              }
+            ]
+          : [])
+      ]
     },
     include: {
       make: { select: { id: true, name: true, slug: true } },
@@ -291,6 +304,20 @@ async function getVisibleCompanyRequest(requestId: string, companyId?: string) {
   };
 }
 
+async function getOfferableCompanyRequest(requestId: string) {
+  const vehicleRequest = await prisma.vehicleRequest.findFirst({
+    where: {
+      id: requestId,
+      status: { in: COMPANY_OFFERABLE_REQUEST_STATUSES }
+    },
+    select: { id: true }
+  });
+
+  if (!vehicleRequest) {
+    throw new AppError("Vehicle request not found", 404, "VEHICLE_REQUEST_NOT_FOUND");
+  }
+}
+
 async function logActivity(actorUserId: string, action: string, entityId: string, metadata?: Prisma.InputJsonObject) {
   await prisma.activityLog.create({
     data: {
@@ -308,7 +335,13 @@ export async function listCompanyVehicleRequests(user: AuthenticatedUser) {
 
   const requests = await prisma.vehicleRequest.findMany({
     where: {
-      status: { in: COMPANY_VISIBLE_REQUEST_STATUSES }
+      OR: [
+        { status: { in: COMPANY_VISIBLE_REQUEST_STATUSES } },
+        {
+          status: VehicleRequestStatus.COMPANY_SELECTED,
+          contactReveal: { companyId: company.id }
+        }
+      ]
     },
     orderBy: { createdAt: "desc" },
     include: {
@@ -354,7 +387,7 @@ export async function listCompanyOffersForRequest(user: AuthenticatedUser, reque
 
 export async function createCompanyOffer(user: AuthenticatedUser, requestId: string, input: VehicleOfferInput) {
   const company = await getUserCompany(user);
-  await getVisibleCompanyRequest(requestId, company.id);
+  await getOfferableCompanyRequest(requestId);
   const data = normalizeCreateInput(input);
   await validateCatalogSelection(data);
 
@@ -711,7 +744,13 @@ export async function getCompanyRequestContact(user: AuthenticatedUser, requestI
   const request = await prisma.vehicleRequest.findFirst({
     where: {
       id: requestId,
-      status: { in: COMPANY_VISIBLE_REQUEST_STATUSES }
+      OR: [
+        { status: { in: COMPANY_VISIBLE_REQUEST_STATUSES } },
+        {
+          status: VehicleRequestStatus.COMPANY_SELECTED,
+          contactReveal: { companyId: company.id }
+        }
+      ]
     },
     select: { id: true }
   });

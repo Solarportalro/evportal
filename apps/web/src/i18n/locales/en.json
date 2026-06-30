@@ -87,6 +87,20 @@
     "REJECTED": "Rejected",
     "CANCELLED": "Cancelled"
   },
+  "requestStatusMessages": {
+    "DRAFT": "Your request is still a draft.",
+    "SUBMITTED": "Your request was submitted and is waiting for review.",
+    "UNDER_REVIEW": "Your request is being reviewed.",
+    "ACTIVE": "Your request is active and companies can submit offers.",
+    "OFFERS_RECEIVED": "Your request has received offers from companies.",
+    "CUSTOMER_DECIDING": "You can compare offers and decide which company to contact.",
+    "COMPANY_SELECTED": "You selected an offer and shared your contact with that company.",
+    "CLOSED_SUCCESSFULLY": "Your request was closed successfully.",
+    "CLOSED_WITHOUT_PURCHASE": "Your request was closed without purchase.",
+    "EXPIRED": "Your request expired.",
+    "REJECTED": "Your request was not approved.",
+    "CANCELLED": "Your request was cancelled."
+  },
   "fuelTypes": {
     "ELECTRIC": "Electric",
     "PLUG_IN_HYBRID": "Plug-in hybrid",
@@ -197,6 +211,24 @@
   "adminOffers": {
     "title": "Vehicle offers",
     "description": "Review all company offers submitted for customer vehicle requests."
+  },
+  "adminRequests": {
+    "title": "Vehicle requests",
+    "description": "Review, approve, reject, and close customer vehicle requests.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "cancel": "Cancel",
+    "expire": "Expire",
+    "closeSuccessfully": "Close successfully",
+    "closeWithoutPurchase": "Close without purchase",
+    "adminNotePrompt": "Optional admin note",
+    "transitionSuccess": "Request status updated.",
+    "transitionFailed": "Could not update request status.",
+    "loadFailed": "Could not load vehicle requests.",
+    "empty": "No vehicle requests yet.",
+    "backToList": "Back to request list",
+    "offers": "offers",
+    "noActions": "No actions available for this status."
   },
   "contactReveal": {
     "interestedButton": "I'm interested in this offer",

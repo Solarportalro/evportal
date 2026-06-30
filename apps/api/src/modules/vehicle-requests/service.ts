@@ -1,12 +1,14 @@
 import {
   HasSolar,
+  Prisma,
   PurchaseTimeline,
   SolarChargingInterest,
   StockImportPreference,
   UserRole,
   VehicleBodyType,
   VehicleFuelType,
-  VehicleRequestMode
+  VehicleRequestMode,
+  VehicleRequestStatus
 } from "@prisma/client";
 import { AppError } from "../../middleware/errorHandler.js";
 import type { AuthenticatedUser } from "../../middleware/auth.js";
@@ -33,9 +35,66 @@ export type CreateVehicleRequestInput = {
 };
 
 const ADMIN_READ_ROLES = new Set<UserRole>([UserRole.PLATFORM_ADMIN, UserRole.SUPPORT]);
+const ADMIN_ACTION_ROLES = new Set<UserRole>([UserRole.PLATFORM_ADMIN, UserRole.SUPPORT]);
+
+type VehicleRequestTransition = {
+  nextStatus: VehicleRequestStatus;
+  allowedFrom: VehicleRequestStatus[];
+  action: string;
+};
+
+const transitions = {
+  approve: {
+    nextStatus: VehicleRequestStatus.ACTIVE,
+    allowedFrom: [VehicleRequestStatus.SUBMITTED, VehicleRequestStatus.UNDER_REVIEW, VehicleRequestStatus.REJECTED],
+    action: "VEHICLE_REQUEST_APPROVED"
+  },
+  reject: {
+    nextStatus: VehicleRequestStatus.REJECTED,
+    allowedFrom: [VehicleRequestStatus.SUBMITTED, VehicleRequestStatus.UNDER_REVIEW],
+    action: "VEHICLE_REQUEST_REJECTED"
+  },
+  cancel: {
+    nextStatus: VehicleRequestStatus.CANCELLED,
+    allowedFrom: [
+      VehicleRequestStatus.SUBMITTED,
+      VehicleRequestStatus.UNDER_REVIEW,
+      VehicleRequestStatus.ACTIVE,
+      VehicleRequestStatus.OFFERS_RECEIVED,
+      VehicleRequestStatus.CUSTOMER_DECIDING
+    ],
+    action: "VEHICLE_REQUEST_CANCELLED"
+  },
+  expire: {
+    nextStatus: VehicleRequestStatus.EXPIRED,
+    allowedFrom: [VehicleRequestStatus.ACTIVE, VehicleRequestStatus.OFFERS_RECEIVED, VehicleRequestStatus.CUSTOMER_DECIDING],
+    action: "VEHICLE_REQUEST_EXPIRED"
+  },
+  closeSuccessfully: {
+    nextStatus: VehicleRequestStatus.CLOSED_SUCCESSFULLY,
+    allowedFrom: [VehicleRequestStatus.COMPANY_SELECTED, VehicleRequestStatus.CUSTOMER_DECIDING, VehicleRequestStatus.OFFERS_RECEIVED],
+    action: "VEHICLE_REQUEST_CLOSED_SUCCESSFULLY"
+  },
+  closeWithoutPurchase: {
+    nextStatus: VehicleRequestStatus.CLOSED_WITHOUT_PURCHASE,
+    allowedFrom: [
+      VehicleRequestStatus.ACTIVE,
+      VehicleRequestStatus.OFFERS_RECEIVED,
+      VehicleRequestStatus.CUSTOMER_DECIDING,
+      VehicleRequestStatus.COMPANY_SELECTED
+    ],
+    action: "VEHICLE_REQUEST_CLOSED_WITHOUT_PURCHASE"
+  }
+} satisfies Record<string, VehicleRequestTransition>;
 
 function assertCanAccessVehicleRequests(user: AuthenticatedUser) {
   if (user.role !== UserRole.CUSTOMER && !ADMIN_READ_ROLES.has(user.role)) {
+    throw new AppError("Forbidden", 403, "FORBIDDEN");
+  }
+}
+
+function assertCanModerateVehicleRequests(user: AuthenticatedUser) {
+  if (!ADMIN_ACTION_ROLES.has(user.role)) {
     throw new AppError("Forbidden", 403, "FORBIDDEN");
   }
 }
@@ -232,3 +291,120 @@ export async function getVehicleRequest(user: AuthenticatedUser, id: string) {
 
   return withDisplayVehicle(request);
 }
+
+const adminVehicleRequestInclude = {
+  make: {
+    select: {
+      id: true,
+      name: true,
+      slug: true
+    }
+  },
+  model: {
+    select: {
+      id: true,
+      makeId: true,
+      name: true,
+      slug: true
+    }
+  },
+  customer: {
+    select: {
+      id: true,
+      email: true,
+      phone: true,
+      role: true,
+      globalCustomer: {
+        select: {
+          fullName: true
+        }
+      }
+    }
+  },
+  _count: {
+    select: {
+      offers: true
+    }
+  }
+} satisfies Prisma.VehicleRequestInclude;
+
+export async function listAdminVehicleRequests(user: AuthenticatedUser) {
+  assertCanModerateVehicleRequests(user);
+
+  const requests = await prisma.vehicleRequest.findMany({
+    orderBy: { createdAt: "desc" },
+    include: adminVehicleRequestInclude
+  });
+
+  return requests.map(withDisplayVehicle);
+}
+
+export async function getAdminVehicleRequest(user: AuthenticatedUser, requestId: string) {
+  assertCanModerateVehicleRequests(user);
+
+  const request = await prisma.vehicleRequest.findUnique({
+    where: { id: requestId },
+    include: adminVehicleRequestInclude
+  });
+
+  if (!request) {
+    throw new AppError("Vehicle request not found", 404, "VEHICLE_REQUEST_NOT_FOUND");
+  }
+
+  return withDisplayVehicle(request);
+}
+
+export async function transitionAdminVehicleRequest(
+  user: AuthenticatedUser,
+  requestId: string,
+  transition: VehicleRequestTransition,
+  input: { adminNote?: string | null } = {}
+) {
+  assertCanModerateVehicleRequests(user);
+
+  const request = await prisma.vehicleRequest.findUnique({
+    where: { id: requestId },
+    select: { id: true, status: true }
+  });
+
+  if (!request) {
+    throw new AppError("Vehicle request not found", 404, "VEHICLE_REQUEST_NOT_FOUND");
+  }
+
+  if (!transition.allowedFrom.includes(request.status)) {
+    throw new AppError("Invalid status transition", 400, "INVALID_STATUS_TRANSITION", {
+      previousStatus: request.status,
+      nextStatus: transition.nextStatus
+    });
+  }
+
+  const adminNote = cleanText(input.adminNote);
+
+  const updatedRequest = await prisma.$transaction(async (transactionClient) => {
+    const nextRequest = await transactionClient.vehicleRequest.update({
+      where: { id: request.id },
+      data: { status: transition.nextStatus },
+      include: adminVehicleRequestInclude
+    });
+
+    await transactionClient.activityLog.create({
+      data: {
+        actorUserId: user.id,
+        action: transition.action,
+        entityType: "VehicleRequest",
+        entityId: request.id,
+        metadata: {
+          previousStatus: request.status,
+          nextStatus: transition.nextStatus,
+          ...(adminNote ? { adminNote } : {})
+        }
+      }
+    });
+
+    return nextRequest;
+  });
+
+  return withDisplayVehicle(updatedRequest);
+}
+
+export const vehicleRequestTransitions = transitions;

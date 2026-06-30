@@ -6,6 +6,7 @@ import { i18n } from "./i18n";
 import { AdminPage } from "./pages/AdminPage";
 import { AdminVehicleCatalogPage } from "./pages/AdminVehicleCatalogPage";
 import { AdminVehicleOffersPage } from "./pages/AdminVehicleOffersPage";
+import { AdminVehicleRequestsPage } from "./pages/AdminVehicleRequestsPage";
 import { CompanyDashboardPage } from "./pages/CompanyDashboardPage";
 import { CompanyOffersPage } from "./pages/CompanyOffersPage";
 import { CompanyRegisterPage } from "./pages/CompanyRegisterPage";
@@ -48,6 +49,8 @@ const router = createBrowserRouter([
       { path: "admin", element: <AdminPage /> },
       { path: "admin/vehicle-catalog", element: <AdminVehicleCatalogPage /> },
       { path: "admin/vehicle-offers", element: <AdminVehicleOffersPage /> },
+      { path: "admin/vehicle-requests", element: <AdminVehicleRequestsPage /> },
+      { path: "admin/vehicle-requests/:requestId", element: <AdminVehicleRequestsPage /> },
       { path: "privacy", element: <PrivacyPage /> },
       { path: "terms", element: <TermsPage /> }
     ]

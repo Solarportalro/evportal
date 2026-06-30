@@ -44,6 +44,7 @@ export function CustomerRequestsPage() {
             <p className="mt-2 text-sm text-slate-600">
               {t(`fuelTypes.${request.fuelType}`)} · {new Date(request.createdAt).toLocaleDateString()}
             </p>
+            <p className="mt-2 text-sm text-slate-500">{t(`requestStatusMessages.${request.status}`)}</p>
           </Link>
         ))}
         {!requests.length && !message ? <p className="text-slate-600">{t("requests.empty")}</p> : null}

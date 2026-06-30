@@ -33,6 +33,9 @@ export function CustomerRequestDetailPage() {
       {message ? <p className="mt-6 text-sm text-red-700">{message}</p> : null}
       {request ? (
         <div className="mt-6 rounded border border-slate-200 bg-white p-5">
+          <p className="mb-5 rounded bg-slate-100 px-4 py-3 text-sm text-slate-700">
+            {t(`requestStatusMessages.${request.status}`)}
+          </p>
           <dl className="grid gap-4 sm:grid-cols-2">
             {Object.entries(request).map(([key, value]) => (
               <div key={key}>
