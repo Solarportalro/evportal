@@ -84,6 +84,40 @@ export async function registerCustomer(input: {
   });
 }
 
+export async function registerCompany(input: {
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+  company: {
+    publicName: string;
+    legalName?: string;
+    type: string;
+    phone?: string;
+    website?: string;
+    city?: string;
+    description?: string;
+  };
+}) {
+  return request<AuthResult & { company: unknown }>("/auth/register-company", {
+    method: "POST",
+    body: JSON.stringify({
+      fullName: input.fullName || undefined,
+      email: input.email,
+      phone: input.phone || undefined,
+      password: input.password,
+      preferredLanguage: "hy",
+      company: {
+        ...input.company,
+        email: input.email,
+        contactPersonName: input.fullName || undefined,
+        contactPersonPhone: input.phone || undefined,
+        contactPersonEmail: input.email
+      }
+    })
+  });
+}
+
 export async function login(input: { emailOrPhone: string; password: string }) {
   return request<AuthResult>("/auth/login", {
     method: "POST",

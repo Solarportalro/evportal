@@ -5,12 +5,14 @@ import helmet from "helmet";
 import { config } from "./config.js";
 import { errorResponse } from "./apiResponse.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { adminCompaniesRouter } from "./routes/adminCompanies.js";
 import { adminContactRevealsRouter } from "./routes/adminContactReveals.js";
 import { adminVehicleCatalogRouter } from "./routes/adminVehicleCatalog.js";
 import { adminVehicleOffersRouter } from "./routes/adminVehicleOffers.js";
 import { adminVehicleRequestsRouter } from "./routes/adminVehicleRequests.js";
 import { authRouter } from "./routes/auth.js";
 import { companyVehicleOffersRouter } from "./routes/companyVehicleOffers.js";
+import { companyProfileRouter } from "./routes/companyProfile.js";
 import { customerVehicleOffersRouter } from "./routes/customerVehicleOffers.js";
 import { healthRouter } from "./routes/health.js";
 import { vehicleCatalogRouter } from "./routes/vehicleCatalog.js";
@@ -36,10 +38,12 @@ app.use(
 
 app.use("/api/health", healthRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/admin/companies", adminCompaniesRouter);
 app.use("/api/admin/contact-reveals", adminContactRevealsRouter);
 app.use("/api/admin/vehicle-catalog", adminVehicleCatalogRouter);
 app.use("/api/admin/vehicle-offers", adminVehicleOffersRouter);
 app.use("/api/admin/vehicle-requests", adminVehicleRequestsRouter);
+app.use("/api/company/profile", companyProfileRouter);
 app.use("/api/company", companyVehicleOffersRouter);
 app.use("/api/customer", customerVehicleOffersRouter);
 app.use("/api/vehicle-catalog", vehicleCatalogRouter);

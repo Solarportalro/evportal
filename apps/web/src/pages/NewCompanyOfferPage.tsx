@@ -20,6 +20,10 @@ function optionalText(value: FormDataEntryValue | null) {
   return text || undefined;
 }
 
+function isCompanyStatusBlock(message: string | null) {
+  return Boolean(message?.toUpperCase().includes("APPROVAL") || message?.toUpperCase().includes("SUSPENDED") || message?.toUpperCase().includes("REJECTED"));
+}
+
 export function NewCompanyOfferPage() {
   const { requestId } = useParams();
   const navigate = useNavigate();
@@ -106,7 +110,16 @@ export function NewCompanyOfferPage() {
         {t("companyRequests.backToRequests")}
       </Link>
       <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950">{t("offers.newOffer")}</h1>
-      {message ? <p className="mt-6 text-sm text-red-700">{message}</p> : null}
+      {message ? (
+        <div className="mt-6 rounded border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <p>{isCompanyStatusBlock(message) ? t("companyProfile.statusBlocked") : message}</p>
+          {isCompanyStatusBlock(message) ? (
+            <Link className="mt-2 inline-block font-medium text-emerald-700" to="/company/profile">
+              {t("companyProfile.goToProfile")}
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
       <form className="mt-6 grid gap-5 rounded border border-slate-200 bg-white p-5" onSubmit={(event) => void handleSubmit(event)}>
         <div className="grid gap-4 sm:grid-cols-3">
           <label className="grid gap-1 text-sm">

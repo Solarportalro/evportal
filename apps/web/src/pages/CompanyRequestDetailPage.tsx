@@ -10,6 +10,10 @@ import {
   type VehicleOfferWithRelations
 } from "../vehicleOfferClient";
 
+function isCompanyStatusBlock(message: string | null) {
+  return Boolean(message?.toUpperCase().includes("APPROVAL") || message?.toUpperCase().includes("SUSPENDED") || message?.toUpperCase().includes("REJECTED"));
+}
+
 export function CompanyRequestDetailPage() {
   const { requestId } = useParams();
   const { t } = useTranslation();
@@ -60,7 +64,16 @@ export function CompanyRequestDetailPage() {
           </Link>
         ) : null}
       </div>
-      {message ? <p className="mt-6 text-sm text-red-700">{message}</p> : null}
+      {message ? (
+        <div className="mt-6 rounded border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <p>{isCompanyStatusBlock(message) ? t("companyProfile.statusBlocked") : message}</p>
+          {isCompanyStatusBlock(message) ? (
+            <Link className="mt-2 inline-block font-medium text-emerald-700" to="/company/profile">
+              {t("companyProfile.goToProfile")}
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
       {request ? (
         <div className="mt-6 rounded border border-slate-200 bg-white p-5">
           <dl className="grid gap-4 sm:grid-cols-2">

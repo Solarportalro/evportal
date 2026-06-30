@@ -14,6 +14,13 @@ export enum CompanyType {
   MIXED = "MIXED"
 }
 
+export enum CompanyStatus {
+  PENDING = "PENDING",
+  ACTIVE = "ACTIVE",
+  SUSPENDED = "SUSPENDED",
+  REJECTED = "REJECTED"
+}
+
 export enum VehicleFuelType {
   ELECTRIC = "ELECTRIC",
   PLUG_IN_HYBRID = "PLUG_IN_HYBRID",
@@ -115,6 +122,26 @@ export type VehicleModel = {
   makeId: string;
   name: string;
   slug: string;
+};
+
+export type CompanyProfile = {
+  id: string;
+  publicName: string;
+  legalName: string | null;
+  type: CompanyType;
+  status: CompanyStatus;
+  phone: string | null;
+  email: string | null;
+  website: string | null;
+  description: string | null;
+  address: string | null;
+  city: string | null;
+  taxId: string | null;
+  contactPersonName: string | null;
+  contactPersonPhone: string | null;
+  contactPersonEmail: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type VehicleOffer = {

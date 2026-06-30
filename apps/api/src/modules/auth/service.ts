@@ -1,4 +1,4 @@
-import { Prisma, UserRole } from "@prisma/client";
+import { CompanyStatus, Prisma, UserRole, type CompanyType } from "@prisma/client";
 import { config } from "../../config.js";
 import { AppError } from "../../middleware/errorHandler.js";
 import { findOrCreateGlobalCustomer } from "../global-customers/service.js";
@@ -6,6 +6,7 @@ import { prisma } from "../../prisma.js";
 import { normalizeArmenianPhone, normalizeEmail, normalizeIdentityInput } from "../../utils/identity.js";
 import { addDuration, generateRandomToken, hashPassword, hashToken, verifyPassword } from "../../utils/security.js";
 import { createAccessToken, createRefreshToken, verifyRefreshToken } from "../../utils/jwt.js";
+import { normalizeCompanyProfileInput, type CompanyProfileInput } from "../companies/service.js";
 import { toSafeUser } from "./types.js";
 
 const PUBLIC_REGISTRATION_ROLES = new Set<UserRole>([
@@ -82,6 +83,118 @@ export async function registerUser(input: {
   return {
     user: toSafeUser(user),
     tokens: await issueAuthTokens(user)
+  };
+}
+
+export async function registerCompany(input: {
+  fullName?: string | null;
+  email: string;
+  phone?: string | null;
+  password: string;
+  preferredLanguage?: string;
+  company: CompanyProfileInput & {
+    publicName: string;
+    type: CompanyType;
+  };
+}) {
+  const normalized = normalizeIdentityInput(input);
+
+  if (!normalized.normalizedEmail) {
+    throw new AppError("Email is required", 400, "EMAIL_REQUIRED");
+  }
+
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { normalizedEmail: normalized.normalizedEmail },
+        ...(normalized.normalizedPhone ? [{ normalizedPhone: normalized.normalizedPhone }] : [])
+      ]
+    }
+  });
+
+  if (existingUser) {
+    throw new AppError("User already exists", 409, "USER_EXISTS");
+  }
+
+  const companyData = normalizeCompanyProfileInput(input.company);
+
+  if (!companyData.publicName) {
+    throw new AppError("Company public name is required", 400, "COMPANY_PUBLIC_NAME_REQUIRED");
+  }
+
+  if (!companyData.type) {
+    throw new AppError("Company type is required", 400, "COMPANY_TYPE_REQUIRED");
+  }
+
+  const publicName = companyData.publicName;
+  const companyType = companyData.type;
+
+  const globalCustomer = await findOrCreateGlobalCustomer(input);
+  const passwordHash = await hashPassword(input.password);
+
+  const result = await prisma.$transaction(async (transactionClient) => {
+    const user = await transactionClient.user.create({
+      data: {
+        globalCustomerId: globalCustomer?.id,
+        email: normalized.normalizedEmail,
+        phone: normalized.normalizedPhone,
+        normalizedEmail: normalized.normalizedEmail,
+        normalizedPhone: normalized.normalizedPhone,
+        passwordHash,
+        role: UserRole.COMPANY_ADMIN,
+        preferredLanguage: input.preferredLanguage?.trim() || "hy"
+      },
+      include: { globalCustomer: true }
+    });
+
+    const company = await transactionClient.company.create({
+      data: {
+        publicName,
+        legalName: companyData.legalName,
+        type: companyType,
+        status: CompanyStatus.PENDING,
+        phone: companyData.phone,
+        email: companyData.email,
+        website: companyData.website,
+        description: companyData.description,
+        address: companyData.address,
+        city: companyData.city,
+        taxId: companyData.taxId,
+        contactPersonName: companyData.contactPersonName,
+        contactPersonPhone: companyData.contactPersonPhone,
+        contactPersonEmail: companyData.contactPersonEmail
+      }
+    });
+
+    await transactionClient.companyMember.create({
+      data: {
+        companyId: company.id,
+        userId: user.id,
+        role: UserRole.COMPANY_ADMIN
+      }
+    });
+
+    await transactionClient.activityLog.create({
+      data: {
+        actorUserId: user.id,
+        action: "COMPANY_CREATED_FROM_REGISTRATION",
+        entityType: "Company",
+        entityId: company.id,
+        metadata: {
+          status: company.status,
+          publicName: company.publicName,
+          type: company.type
+        }
+      }
+    });
+
+    return { user, company };
+  });
+
+  return {
+    user: toSafeUser(result.user),
+    company: result.company,
+    tokens: await issueAuthTokens(result.user)
   };
 }
 

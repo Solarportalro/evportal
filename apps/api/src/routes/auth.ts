@@ -1,4 +1,4 @@
-import { UserRole } from "@prisma/client";
+import { CompanyType, UserRole } from "@prisma/client";
 import { Router } from "express";
 import { z } from "zod";
 import { successResponse } from "../apiResponse.js";
@@ -11,6 +11,7 @@ import {
   loginUser,
   logoutWithRefreshToken,
   refreshAccessToken,
+  registerCompany,
   registerUser,
   requestSetPassword,
   setPassword
@@ -25,6 +26,31 @@ const registerSchema = z.object({
   password: z.string().min(8),
   role: z.nativeEnum(UserRole).optional(),
   preferredLanguage: z.string().trim().min(2).max(10).optional()
+});
+
+const companyProfileSchema = z.object({
+  publicName: z.string().trim().min(1),
+  legalName: z.string().trim().optional().nullable(),
+  type: z.nativeEnum(CompanyType),
+  phone: z.string().trim().optional().nullable(),
+  email: z.string().trim().optional().nullable(),
+  website: z.string().trim().optional().nullable(),
+  description: z.string().trim().max(2000).optional().nullable(),
+  address: z.string().trim().optional().nullable(),
+  city: z.string().trim().optional().nullable(),
+  taxId: z.string().trim().optional().nullable(),
+  contactPersonName: z.string().trim().optional().nullable(),
+  contactPersonPhone: z.string().trim().optional().nullable(),
+  contactPersonEmail: z.string().trim().optional().nullable()
+});
+
+const registerCompanySchema = z.object({
+  fullName: z.string().trim().optional().nullable(),
+  email: z.string().trim().min(1),
+  phone: z.string().trim().optional().nullable(),
+  password: z.string().min(8),
+  preferredLanguage: z.string().trim().min(2).max(10).optional(),
+  company: companyProfileSchema
 });
 
 const loginSchema = z.object({
@@ -52,6 +78,20 @@ const setPasswordSchema = z.object({
 authRouter.post("/register", async (request, response, next) => {
   try {
     const result = await registerUser(registerSchema.parse(request.body));
+    response.status(201).json(successResponse(result));
+  } catch (error) {
+    if (isPrismaUniqueError(error)) {
+      next(new AppError("User already exists", 409, "USER_EXISTS"));
+      return;
+    }
+
+    next(error);
+  }
+});
+
+authRouter.post("/register-company", async (request, response, next) => {
+  try {
+    const result = await registerCompany(registerCompanySchema.parse(request.body));
     response.status(201).json(successResponse(result));
   } catch (error) {
     if (isPrismaUniqueError(error)) {

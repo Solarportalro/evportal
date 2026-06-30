@@ -11,6 +11,7 @@
     "customerRequests": "My requests",
     "createRequest": "Create request",
     "companyDashboard": "Company dashboard",
+    "companyProfile": "Company profile",
     "companyRequests": "Customer requests",
     "companyOffers": "Company offers",
     "admin": "Admin",
@@ -32,6 +33,51 @@
     "loggedOut": "Logged out.",
     "logout": "Logout",
     "failed": "Request failed"
+  },
+  "companyOnboarding": {
+    "register": "Register company",
+    "registrationPending": "Your company account has been created and is waiting for admin approval."
+  },
+  "companyProfile": {
+    "title": "Company profile",
+    "publicName": "Public name",
+    "legalName": "Legal name",
+    "phone": "Company phone",
+    "email": "Company email",
+    "website": "Website",
+    "description": "Description",
+    "address": "Address",
+    "city": "City",
+    "taxId": "Tax ID",
+    "contactPersonName": "Contact person name",
+    "contactPersonPhone": "Contact person phone",
+    "contactPersonEmail": "Contact person email",
+    "save": "Save profile",
+    "saved": "Company profile saved.",
+    "saveFailed": "Could not save company profile.",
+    "loadFailed": "Could not load company profile.",
+    "viewOnly": "Only company admins can update this profile.",
+    "statusBlocked": "Your company needs admin approval or status review before accessing customer request and offer tools.",
+    "goToProfile": "Go to company profile"
+  },
+  "companyTypes": {
+    "STOCK_SELLER": "Stock seller",
+    "IMPORTER": "Importer",
+    "OFFICIAL_DEALER": "Official dealer",
+    "BROKER": "Broker",
+    "MIXED": "Mixed"
+  },
+  "companyStatuses": {
+    "PENDING": "Pending",
+    "ACTIVE": "Active",
+    "SUSPENDED": "Suspended",
+    "REJECTED": "Rejected"
+  },
+  "companyStatusMessages": {
+    "PENDING": "Your company profile is waiting for review. You will be able to view customer requests after approval.",
+    "ACTIVE": "Your company is approved and can use company tools.",
+    "SUSPENDED": "Your company access is suspended. Please contact EV Portal support.",
+    "REJECTED": "Your company registration was rejected. Please update the profile or contact EV Portal support."
   },
   "requests": {
     "myRequests": "My vehicle requests",
@@ -228,6 +274,26 @@
     "empty": "No vehicle requests yet.",
     "backToList": "Back to request list",
     "offers": "offers",
+    "noActions": "No actions available for this status."
+  },
+  "adminCompanies": {
+    "title": "Companies",
+    "description": "Review, approve, reject, suspend, and reactivate company profiles.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "suspend": "Suspend",
+    "reactivate": "Reactivate",
+    "adminNotePrompt": "Optional admin note",
+    "transitionSuccess": "Company status updated.",
+    "transitionFailed": "Could not update company status.",
+    "saved": "Company profile updated.",
+    "saveFailed": "Could not update company profile.",
+    "loadFailed": "Could not load companies.",
+    "empty": "No companies yet.",
+    "backToList": "Back to company list",
+    "members": "{{count}} members",
+    "offers": "{{count}} offers",
+    "membersTitle": "Company members",
     "noActions": "No actions available for this status."
   },
   "contactReveal": {

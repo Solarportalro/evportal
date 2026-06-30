@@ -1,4 +1,5 @@
 import {
+  CompanyStatus,
   Prisma,
   UserRole,
   VehicleOfferStatus,
@@ -119,6 +120,18 @@ async function getUserCompany(user: AuthenticatedUser) {
 
   if (!membership) {
     throw new AppError("Company membership required", 403, "COMPANY_MEMBERSHIP_REQUIRED");
+  }
+
+  if (membership.company.status === CompanyStatus.PENDING) {
+    throw new AppError("Company is waiting for approval", 403, "COMPANY_NOT_APPROVED");
+  }
+
+  if (membership.company.status === CompanyStatus.SUSPENDED) {
+    throw new AppError("Company is suspended", 403, "COMPANY_SUSPENDED");
+  }
+
+  if (membership.company.status === CompanyStatus.REJECTED) {
+    throw new AppError("Company was rejected", 403, "COMPANY_REJECTED");
   }
 
   return membership.company;

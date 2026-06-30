@@ -160,16 +160,26 @@ model User {
 }
 
 model Company {
-  id         String          @id @default(cuid())
-  publicName String
-  legalName  String?
-  type       CompanyType
-  status     CompanyStatus   @default(PENDING)
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
-  members    CompanyMember[]
-  vehicleOffers VehicleOffer[]
-  contactReveals ContactReveal[]
+  id                 String          @id @default(cuid())
+  publicName         String
+  legalName          String?
+  type               CompanyType
+  status             CompanyStatus   @default(PENDING)
+  phone              String?
+  email              String?
+  website            String?
+  description        String?
+  address            String?
+  city               String?
+  taxId              String?
+  contactPersonName  String?
+  contactPersonPhone String?
+  contactPersonEmail String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  members            CompanyMember[]
+  vehicleOffers      VehicleOffer[]
+  contactReveals     ContactReveal[]
 }
 
 model CompanyMember {

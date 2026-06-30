@@ -4,6 +4,10 @@ import { useTranslation } from "react-i18next";
 import type { VehicleRequest } from "../vehicleRequestClient";
 import { listCompanyVehicleRequests } from "../vehicleOfferClient";
 
+function isCompanyStatusBlock(message: string | null) {
+  return Boolean(message?.toUpperCase().includes("APPROVAL") || message?.toUpperCase().includes("SUSPENDED") || message?.toUpperCase().includes("REJECTED"));
+}
+
 export function CompanyRequestsPage() {
   const { t } = useTranslation();
   const [requests, setRequests] = useState<VehicleRequest[]>([]);
@@ -19,7 +23,16 @@ export function CompanyRequestsPage() {
     <section>
       <h1 className="text-3xl font-semibold tracking-tight text-slate-950">{t("companyRequests.title")}</h1>
       <p className="mt-2 text-slate-600">{t("companyRequests.description")}</p>
-      {message ? <p className="mt-6 text-sm text-red-700">{message}</p> : null}
+      {message ? (
+        <div className="mt-6 rounded border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <p>{isCompanyStatusBlock(message) ? t("companyProfile.statusBlocked") : message}</p>
+          {isCompanyStatusBlock(message) ? (
+            <Link className="mt-2 inline-block font-medium text-emerald-700" to="/company/profile">
+              {t("companyProfile.goToProfile")}
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
       <div className="mt-6 grid gap-3">
         {requests.map((request) => (
           <Link
