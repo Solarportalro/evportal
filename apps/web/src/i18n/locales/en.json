@@ -36,7 +36,10 @@
   },
   "companyOnboarding": {
     "register": "Register company",
-    "registrationPending": "Your company account has been created and is waiting for admin approval."
+    "registrationPending": "Your company account was created and is waiting for admin approval. After approval, you will be able to view customer requests and submit offers.",
+    "accountOwner": "Account owner",
+    "companyInformation": "Company information",
+    "contactDetails": "Contact details"
   },
   "companyProfile": {
     "title": "Company profile",
@@ -58,7 +61,9 @@
     "loadFailed": "Could not load company profile.",
     "viewOnly": "Only company admins can update this profile.",
     "statusBlocked": "Your company needs admin approval or status review before accessing customer request and offer tools.",
-    "goToProfile": "Go to company profile"
+    "goToProfile": "Go to company profile",
+    "type": "Company type",
+    "loading": "Loading company profile..."
   },
   "companyTypes": {
     "STOCK_SELLER": "Stock seller",
@@ -74,10 +79,10 @@
     "REJECTED": "Rejected"
   },
   "companyStatusMessages": {
-    "PENDING": "Your company profile is waiting for review. You will be able to view customer requests after approval.",
+    "PENDING": "Your company is waiting for admin approval. After approval, you can view customer requests and submit offers.",
     "ACTIVE": "Your company is approved and can use company tools.",
-    "SUSPENDED": "Your company access is suspended. Please contact EV Portal support.",
-    "REJECTED": "Your company registration was rejected. Please update the profile or contact EV Portal support."
+    "SUSPENDED": "Your company is suspended. Contact support to review access.",
+    "REJECTED": "Your company registration was rejected. Contact support if you think this is a mistake."
   },
   "userRoles": {
     "CUSTOMER": "Customer",
@@ -129,7 +134,10 @@
     "customerRegion": "Region",
     "customerCity": "City",
     "usageType": "Usage type",
-    "chargingAccess": "Charging access"
+    "chargingAccess": "Charging access",
+    "exactHint": "Choose a catalog make/model or use Other / not listed to type it manually.",
+    "recommendationHint": "Tell us your budget and preferences. Companies may suggest suitable vehicles.",
+    "waitingReviewHint": "After submitting, your request waits for admin review before companies can send offers."
   },
   "publicRequest": {
     "title": "Request vehicle offers",
@@ -139,7 +147,10 @@
     "success": "Your request has been submitted and is waiting for review.",
     "createFailed": "Could not submit your request.",
     "devSetPassword": "Dev: Set password",
-    "accountInstructions": "We will contact you or send account access instructions."
+    "accountInstructions": "We will contact you or send account access instructions.",
+    "trustText": "We use your contact information only to manage your request and share it with a company only after you choose an offer.",
+    "successDetailed": "Your request was submitted. It is waiting for admin review before companies can send offers.",
+    "devOnly": "Development only: this link is shown only outside production."
   },
   "requestModes": {
     "EXACT_MODEL": "Exact model",
@@ -161,17 +172,17 @@
   },
   "requestStatusMessages": {
     "DRAFT": "Your request is still a draft.",
-    "SUBMITTED": "Your request was submitted and is waiting for review.",
+    "SUBMITTED": "Your request is waiting for review.",
     "UNDER_REVIEW": "Your request is being reviewed.",
     "ACTIVE": "Your request is active and companies can submit offers.",
-    "OFFERS_RECEIVED": "Your request has received offers from companies.",
-    "CUSTOMER_DECIDING": "You can compare offers and decide which company to contact.",
-    "COMPANY_SELECTED": "You selected an offer and shared your contact with that company.",
-    "CLOSED_SUCCESSFULLY": "Your request was closed successfully.",
-    "CLOSED_WITHOUT_PURCHASE": "Your request was closed without purchase.",
-    "EXPIRED": "Your request expired.",
-    "REJECTED": "Your request was not approved.",
-    "CANCELLED": "Your request was cancelled."
+    "OFFERS_RECEIVED": "Offers have arrived. Review them when ready.",
+    "CUSTOMER_DECIDING": "Review offers and choose the best one for you.",
+    "COMPANY_SELECTED": "You selected a company. They may contact you about the offer.",
+    "CLOSED_SUCCESSFULLY": "This request was closed successfully.",
+    "CLOSED_WITHOUT_PURCHASE": "This request was closed without a purchase.",
+    "EXPIRED": "This request expired.",
+    "REJECTED": "This request was not approved. Contact support if you need help.",
+    "CANCELLED": "This request was cancelled."
   },
   "fuelTypes": {
     "ELECTRIC": "Electric",
@@ -272,7 +283,11 @@
     "vinAvailable": "VIN available",
     "photosAvailable": "Photos available",
     "documentsAvailable": "Documents available",
-    "inspectionIncluded": "Inspection included"
+    "inspectionIncluded": "Inspection included",
+    "requiredHint": "Fields marked with * are required. Add enough detail so customers can compare offers confidently.",
+    "offerTypeHint": "Use alternative recommendation only when you are suggesting a different suitable vehicle.",
+    "currency": "Currency",
+    "companyOffer": "Company offer"
   },
   "offerTypes": {
     "IN_STOCK": "In stock",
@@ -378,7 +393,9 @@
     "contactLoadFailed": "Could not load customer contact.",
     "revealDate": "Reveal date",
     "adminTitle": "Contact reveals",
-    "adminEmpty": "No contact reveals yet."
+    "adminEmpty": "No contact reveals yet.",
+    "selectionTrustText": "Your contact will be shared only with the company whose offer you choose.",
+    "selectionClosed": "You already selected an offer for this request."
   },
   "adminCatalog": {
     "title": "Vehicle catalog",
@@ -506,5 +523,31 @@
     "selectionRate": "Selection rate",
     "averageResponseTimeHours": "Avg. response hours",
     "noCompanies": "No company performance data yet."
+  },
+  "formSections": {
+    "contact": "Contact information",
+    "vehicleNeed": "What kind of vehicle are you looking for?",
+    "budgetTiming": "Budget and timing",
+    "vehiclePreferences": "Vehicle preferences",
+    "chargingSolar": "EV charging / solar",
+    "notes": "Notes"
+  },
+  "offerSections": {
+    "type": "Offer type",
+    "vehicle": "Vehicle details",
+    "availability": "Availability and delivery",
+    "price": "Price and included costs",
+    "paymentWarranty": "Payment and warranty",
+    "extras": "Extras and documents",
+    "notes": "Notes"
+  },
+  "adminDashboard": {
+    "vehicleRequestsDescription": "Review, approve, and control customer request statuses.",
+    "vehicleOffersDescription": "Review company offers and selected offers.",
+    "contactRevealsDescription": "See selected offer contact reveal records.",
+    "companiesDescription": "Approve, suspend, and manage vehicle companies.",
+    "usersDescription": "Manage platform users and access status.",
+    "catalogDescription": "Manage vehicle makes and models.",
+    "reportsDescription": "View internal market and operations metrics."
   }
 }
