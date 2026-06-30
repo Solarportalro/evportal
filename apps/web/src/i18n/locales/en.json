@@ -79,6 +79,13 @@
     "SUSPENDED": "Your company access is suspended. Please contact EV Portal support.",
     "REJECTED": "Your company registration was rejected. Please update the profile or contact EV Portal support."
   },
+  "userRoles": {
+    "CUSTOMER": "Customer",
+    "COMPANY_USER": "Company user",
+    "COMPANY_ADMIN": "Company admin",
+    "PLATFORM_ADMIN": "Platform admin",
+    "SUPPORT": "Support"
+  },
   "requests": {
     "myRequests": "My vehicle requests",
     "myRequestsDescription": "View the vehicle needs you submitted to EV Portal.",
@@ -295,6 +302,39 @@
     "offers": "{{count}} offers",
     "membersTitle": "Company members",
     "noActions": "No actions available for this status."
+  },
+  "adminUsers": {
+    "title": "Users",
+    "description": "View users, roles, verification status, and safe administrative controls.",
+    "detailTitle": "User details",
+    "view": "View",
+    "active": "Active",
+    "disabled": "Disabled",
+    "disable": "Disable",
+    "enable": "Enable",
+    "disableReasonPrompt": "Optional disable reason",
+    "disableSuccess": "User disabled.",
+    "enableSuccess": "User enabled.",
+    "updateSuccess": "User updated.",
+    "roleChangeSuccess": "User role updated.",
+    "actionFailed": "User action failed.",
+    "loadFailed": "Could not load users.",
+    "empty": "No users found.",
+    "backToList": "Back to users",
+    "email": "Email",
+    "phone": "Phone",
+    "normalizedEmail": "Normalized email",
+    "normalizedPhone": "Normalized phone",
+    "preferredLanguage": "Preferred language",
+    "isEmailVerified": "Email verified",
+    "isPhoneVerified": "Phone verified",
+    "save": "Save user",
+    "roleManagement": "Role management",
+    "adminNote": "Admin note",
+    "changeRole": "Change role",
+    "globalCustomer": "Global customer",
+    "companyMemberships": "Company memberships",
+    "noMemberships": "No company memberships."
   },
   "contactReveal": {
     "interestedButton": "I'm interested in this offer",

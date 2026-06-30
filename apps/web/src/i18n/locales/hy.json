@@ -79,6 +79,13 @@
     "SUSPENDED": "Ձեր ընկերության հասանելիությունը կասեցված է։ Խնդրում ենք կապվել EV Portal աջակցման հետ։",
     "REJECTED": "Ձեր ընկերության գրանցումը մերժվել է։ Խնդրում ենք թարմացնել պրոֆիլը կամ կապվել EV Portal աջակցման հետ։"
   },
+  "userRoles": {
+    "CUSTOMER": "Հաճախորդ",
+    "COMPANY_USER": "Ընկերության օգտվող",
+    "COMPANY_ADMIN": "Ընկերության ադմին",
+    "PLATFORM_ADMIN": "Պլատֆորմի ադմին",
+    "SUPPORT": "Աջակցում"
+  },
   "requests": {
     "myRequests": "Իմ մեքենայի հայտերը",
     "myRequestsDescription": "Դիտեք EV Portal ուղարկված ձեր մեքենայի պահանջները։",
@@ -295,6 +302,39 @@
     "offers": "{{count}} առաջարկ",
     "membersTitle": "Ընկերության անդամներ",
     "noActions": "Այս կարգավիճակի համար գործողություններ չկան։"
+  },
+  "adminUsers": {
+    "title": "Օգտվողներ",
+    "description": "Դիտեք օգտվողներին, դերերը, հաստատման կարգավիճակները և անվտանգ ադմին գործողությունները։",
+    "detailTitle": "Օգտվողի մանրամասներ",
+    "view": "Դիտել",
+    "active": "Ակտիվ",
+    "disabled": "Անջատված",
+    "disable": "Անջատել",
+    "enable": "Միացնել",
+    "disableReasonPrompt": "Անջատման պատճառ՝ ոչ պարտադիր",
+    "disableSuccess": "Օգտվողն անջատվել է։",
+    "enableSuccess": "Օգտվողը միացվել է։",
+    "updateSuccess": "Օգտվողը թարմացվել է։",
+    "roleChangeSuccess": "Օգտվողի դերը թարմացվել է։",
+    "actionFailed": "Օգտվողի գործողությունը ձախողվեց։",
+    "loadFailed": "Չհաջողվեց բեռնել օգտվողներին։",
+    "empty": "Օգտվողներ չեն գտնվել։",
+    "backToList": "Վերադառնալ օգտվողներին",
+    "email": "Էլ․ փոստ",
+    "phone": "Հեռախոս",
+    "normalizedEmail": "Նորմալացված էլ․ փոստ",
+    "normalizedPhone": "Նորմալացված հեռախոս",
+    "preferredLanguage": "Նախընտրելի լեզու",
+    "isEmailVerified": "Էլ․ փոստը հաստատված է",
+    "isPhoneVerified": "Հեռախոսը հաստատված է",
+    "save": "Պահպանել օգտվողին",
+    "roleManagement": "Դերի կառավարում",
+    "adminNote": "Ադմինի նշում",
+    "changeRole": "Փոխել դերը",
+    "globalCustomer": "Գլոբալ հաճախորդ",
+    "companyMemberships": "Ընկերության անդամակցություններ",
+    "noMemberships": "Ընկերության անդամակցություններ չկան։"
   },
   "contactReveal": {
     "interestedButton": "Հետաքրքրված եմ այս առաջարկով",

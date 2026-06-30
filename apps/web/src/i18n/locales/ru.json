@@ -79,6 +79,13 @@
     "SUSPENDED": "Доступ компании приостановлен. Свяжитесь с поддержкой EV Portal.",
     "REJECTED": "Регистрация компании отклонена. Обновите профиль или свяжитесь с поддержкой EV Portal."
   },
+  "userRoles": {
+    "CUSTOMER": "Клиент",
+    "COMPANY_USER": "Пользователь компании",
+    "COMPANY_ADMIN": "Админ компании",
+    "PLATFORM_ADMIN": "Админ платформы",
+    "SUPPORT": "Поддержка"
+  },
   "requests": {
     "myRequests": "Мои заявки на автомобиль",
     "myRequestsDescription": "Просматривайте потребности в автомобиле, отправленные в EV Portal.",
@@ -295,6 +302,39 @@
     "offers": "{{count}} предложений",
     "membersTitle": "Участники компании",
     "noActions": "Для этого статуса нет доступных действий."
+  },
+  "adminUsers": {
+    "title": "Пользователи",
+    "description": "Просмотр пользователей, ролей, статуса верификации и безопасных административных действий.",
+    "detailTitle": "Детали пользователя",
+    "view": "Просмотр",
+    "active": "Активен",
+    "disabled": "Отключен",
+    "disable": "Отключить",
+    "enable": "Включить",
+    "disableReasonPrompt": "Необязательная причина отключения",
+    "disableSuccess": "Пользователь отключен.",
+    "enableSuccess": "Пользователь включен.",
+    "updateSuccess": "Пользователь обновлен.",
+    "roleChangeSuccess": "Роль пользователя обновлена.",
+    "actionFailed": "Действие с пользователем не выполнено.",
+    "loadFailed": "Не удалось загрузить пользователей.",
+    "empty": "Пользователи не найдены.",
+    "backToList": "Назад к пользователям",
+    "email": "Email",
+    "phone": "Телефон",
+    "normalizedEmail": "Нормализованный email",
+    "normalizedPhone": "Нормализованный телефон",
+    "preferredLanguage": "Предпочитаемый язык",
+    "isEmailVerified": "Email подтвержден",
+    "isPhoneVerified": "Телефон подтвержден",
+    "save": "Сохранить пользователя",
+    "roleManagement": "Управление ролью",
+    "adminNote": "Заметка администратора",
+    "changeRole": "Изменить роль",
+    "globalCustomer": "Глобальный клиент",
+    "companyMemberships": "Участие в компаниях",
+    "noMemberships": "Нет участий в компаниях."
   },
   "contactReveal": {
     "interestedButton": "Меня интересует это предложение",

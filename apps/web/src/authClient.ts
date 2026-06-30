@@ -21,6 +21,9 @@ export type SafeUser = {
   preferredLanguage: string;
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
+  isActive: boolean;
+  disabledAt: string | null;
+  disabledReason: string | null;
   createdAt: string;
   updatedAt: string;
 };

@@ -30,7 +30,7 @@ export async function requireAuth(request: Request, response: Response, next: Ne
     const payload = verifyAccessToken(token);
     const user = await prisma.user.findUnique({
       where: { id: payload.sub },
-      select: { id: true, role: true }
+      select: { id: true, role: true, isActive: true }
     });
 
     if (!user) {
@@ -38,7 +38,12 @@ export async function requireAuth(request: Request, response: Response, next: Ne
       return;
     }
 
-    request.user = user;
+    if (!user.isActive) {
+      response.status(403).json(errorResponse("User is disabled", "USER_DISABLED"));
+      return;
+    }
+
+    request.user = { id: user.id, role: user.role };
     next();
   } catch {
     response.status(401).json(errorResponse("Invalid access token", "INVALID_ACCESS_TOKEN"));

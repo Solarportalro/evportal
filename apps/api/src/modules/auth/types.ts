@@ -12,6 +12,9 @@ export type SafeUser = {
   preferredLanguage: string;
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
+  isActive: boolean;
+  disabledAt: string | null;
+  disabledReason: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -29,6 +32,9 @@ export function toSafeUser(user: User & { globalCustomer?: { fullName: string | 
     preferredLanguage: user.preferredLanguage,
     isEmailVerified: user.isEmailVerified,
     isPhoneVerified: user.isPhoneVerified,
+    isActive: user.isActive,
+    disabledAt: user.disabledAt?.toISOString() ?? null,
+    disabledReason: user.disabledReason,
     createdAt: user.createdAt.toISOString(),
     updatedAt: user.updatedAt.toISOString()
   };

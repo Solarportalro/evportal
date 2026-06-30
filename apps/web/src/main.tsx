@@ -5,6 +5,7 @@ import { AppLayout } from "./AppLayout";
 import { i18n } from "./i18n";
 import { AdminCompaniesPage } from "./pages/AdminCompaniesPage";
 import { AdminPage } from "./pages/AdminPage";
+import { AdminUsersPage } from "./pages/AdminUsersPage";
 import { AdminVehicleCatalogPage } from "./pages/AdminVehicleCatalogPage";
 import { AdminVehicleOffersPage } from "./pages/AdminVehicleOffersPage";
 import { AdminVehicleRequestsPage } from "./pages/AdminVehicleRequestsPage";
@@ -52,6 +53,8 @@ const router = createBrowserRouter([
       { path: "admin", element: <AdminPage /> },
       { path: "admin/companies", element: <AdminCompaniesPage /> },
       { path: "admin/companies/:companyId", element: <AdminCompaniesPage /> },
+      { path: "admin/users", element: <AdminUsersPage /> },
+      { path: "admin/users/:userId", element: <AdminUsersPage /> },
       { path: "admin/vehicle-catalog", element: <AdminVehicleCatalogPage /> },
       { path: "admin/vehicle-offers", element: <AdminVehicleOffersPage /> },
       { path: "admin/vehicle-requests", element: <AdminVehicleRequestsPage /> },

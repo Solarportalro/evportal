@@ -216,6 +216,10 @@ export async function loginUser(input: { emailOrPhone: string; password: string 
     throw new AppError("Invalid credentials", 401, "INVALID_CREDENTIALS");
   }
 
+  if (!user.isActive) {
+    throw new AppError("User is disabled", 403, "USER_DISABLED");
+  }
+
   const isValidPassword = await verifyPassword(input.password, user.passwordHash);
 
   if (!isValidPassword) {
@@ -249,6 +253,10 @@ export async function refreshAccessToken(refreshToken: string) {
     storedToken.expiresAt <= new Date()
   ) {
     throw new AppError("Invalid refresh token", 401, "INVALID_REFRESH_TOKEN");
+  }
+
+  if (!storedToken.user.isActive) {
+    throw new AppError("User is disabled", 403, "USER_DISABLED");
   }
 
   return {
