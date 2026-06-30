@@ -11,9 +11,15 @@
     "customerRequests": "Мои заявки",
     "createRequest": "Создать заявку",
     "companyDashboard": "Кабинет компании",
+    "companyRequests": "Заявки клиентов",
+    "companyOffers": "Предложения компании",
     "admin": "Админ",
     "privacy": "Конфиденциальность",
     "terms": "Условия"
+  },
+  "common": {
+    "yes": "Да",
+    "no": "Нет"
   },
   "auth": {
     "emailOrPhone": "Email или телефон",
@@ -117,6 +123,80 @@
     "MAYBE_LATER": "Возможно позже",
     "NO": "Нет",
     "NOT_ASKED": "Не спрашивали"
+  },
+  "companyRequests": {
+    "title": "Видимые заявки клиентов",
+    "description": "Просматривайте активные заявки и отправляйте структурированные предложения.",
+    "details": "Детали заявки клиента",
+    "backToRequests": "Назад к заявкам компании",
+    "empty": "Видимых заявок пока нет."
+  },
+  "offers": {
+    "myOffers": "Предложения моей компании",
+    "myOffersDescription": "Отслеживайте и отзывайте предложения вашей компании.",
+    "empty": "Предложений пока нет.",
+    "newOffer": "Новое предложение автомобиля",
+    "submitOffer": "Отправить предложение",
+    "compareOffers": "Сравнить предложения",
+    "compareDescription": "Сравните предложения компаний по этой заявке.",
+    "loadFailed": "Не удалось загрузить предложения.",
+    "createFailed": "Не удалось создать предложение.",
+    "updateFailed": "Не удалось обновить предложение.",
+    "withdraw": "Отозвать",
+    "offerType": "Тип предложения",
+    "availability": "Доступность",
+    "delivery": "Дни доставки",
+    "vehicle": "Автомобиль",
+    "company": "Компания",
+    "status": "Статус",
+    "createdAt": "Создано",
+    "year": "Год",
+    "trim": "Комплектация",
+    "rangeKm": "Запас хода, км",
+    "mileageKm": "Пробег, км",
+    "batteryKwh": "Батарея, kWh",
+    "color": "Цвет",
+    "sourceCountry": "Страна источника",
+    "deliveryMin": "Мин. дней доставки",
+    "deliveryMax": "Макс. дней доставки",
+    "priceAmount": "Цена",
+    "advancePaymentAmount": "Сумма аванса",
+    "warrantyMonths": "Гарантия, мес.",
+    "batteryWarrantyMonths": "Гарантия батареи, мес.",
+    "warrantyProvider": "Поставщик гарантии",
+    "priceIncludesCustoms": "Включает таможню",
+    "priceIncludesRegistration": "Включает регистрацию",
+    "priceIncludesDeliveryToArmenia": "Включает доставку в Армению",
+    "priceIncludesDealerFee": "Включает комиссию дилера",
+    "priceIsFinal": "Финальная цена",
+    "advancePaymentRequired": "Требуется аванс",
+    "advancePaymentRefundable": "Аванс возвращается",
+    "serviceSupportIncluded": "Сервисная поддержка включена",
+    "chargerIncluded": "Зарядное включено",
+    "financingAvailable": "Финансирование доступно",
+    "tradeInAccepted": "Trade-in принимается"
+  },
+  "offerTypes": {
+    "IN_STOCK": "В наличии",
+    "IMPORT_ORDER": "Заказ на импорт",
+    "ALTERNATIVE_RECOMMENDATION": "Альтернативная рекомендация"
+  },
+  "offerStatuses": {
+    "SUBMITTED": "Отправлено",
+    "UPDATED": "Обновлено",
+    "WITHDRAWN": "Отозвано",
+    "SELECTED": "Выбрано",
+    "REJECTED_BY_CUSTOMER": "Отклонено клиентом",
+    "EXPIRED": "Истекло"
+  },
+  "availabilityStatuses": {
+    "IN_ARMENIA": "В Армении",
+    "IN_TRANSIT": "В пути",
+    "IMPORT_REQUIRED": "Требуется импорт"
+  },
+  "adminOffers": {
+    "title": "Предложения автомобилей",
+    "description": "Просмотр всех предложений компаний по заявкам клиентов."
   },
   "adminCatalog": {
     "title": "Каталог автомобилей",

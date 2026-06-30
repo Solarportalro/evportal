@@ -77,6 +77,33 @@ export enum SolarChargingInterest {
   NOT_ASKED = "NOT_ASKED"
 }
 
+export enum VehicleOfferType {
+  IN_STOCK = "IN_STOCK",
+  IMPORT_ORDER = "IMPORT_ORDER",
+  ALTERNATIVE_RECOMMENDATION = "ALTERNATIVE_RECOMMENDATION"
+}
+
+export enum VehicleOfferStatus {
+  SUBMITTED = "SUBMITTED",
+  UPDATED = "UPDATED",
+  WITHDRAWN = "WITHDRAWN",
+  SELECTED = "SELECTED",
+  REJECTED_BY_CUSTOMER = "REJECTED_BY_CUSTOMER",
+  EXPIRED = "EXPIRED"
+}
+
+export enum VehicleAvailabilityStatus {
+  IN_ARMENIA = "IN_ARMENIA",
+  IN_TRANSIT = "IN_TRANSIT",
+  IMPORT_REQUIRED = "IMPORT_REQUIRED"
+}
+
+export enum OfferCurrency {
+  AMD = "AMD",
+  USD = "USD",
+  EUR = "EUR"
+}
+
 export type VehicleMake = {
   id: string;
   name: string;
@@ -88,6 +115,53 @@ export type VehicleModel = {
   makeId: string;
   name: string;
   slug: string;
+};
+
+export type VehicleOffer = {
+  id: string;
+  requestId: string;
+  companyId: string;
+  submittedByUserId: string;
+  offerType: VehicleOfferType;
+  status: VehicleOfferStatus;
+  makeId: string | null;
+  modelId: string | null;
+  manualMake: string | null;
+  manualModel: string | null;
+  displayMake: string | null;
+  displayModel: string | null;
+  year: number | null;
+  trim: string | null;
+  fuelType: VehicleFuelType;
+  batteryCapacityKwh: number | null;
+  rangeKm: number | null;
+  mileageKm: number | null;
+  color: string | null;
+  availabilityStatus: VehicleAvailabilityStatus;
+  sourceCountry: string | null;
+  estimatedDeliveryDaysMin: number | null;
+  estimatedDeliveryDaysMax: number | null;
+  priceAmount: number;
+  currency: OfferCurrency;
+  priceIncludesCustoms: boolean;
+  priceIncludesRegistration: boolean;
+  priceIncludesDeliveryToArmenia: boolean;
+  priceIncludesDealerFee: boolean;
+  priceIsFinal: boolean;
+  advancePaymentRequired: boolean;
+  advancePaymentAmount: number | null;
+  advancePaymentRefundable: boolean | null;
+  warrantyMonths: number | null;
+  batteryWarrantyMonths: number | null;
+  warrantyProvider: string | null;
+  serviceSupportIncluded: boolean;
+  chargerIncluded: boolean;
+  financingAvailable: boolean;
+  tradeInAccepted: boolean;
+  offerValidUntil: string | null;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ApiResponse<T> = {

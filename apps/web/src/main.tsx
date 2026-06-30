@@ -5,14 +5,20 @@ import { AppLayout } from "./AppLayout";
 import { i18n } from "./i18n";
 import { AdminPage } from "./pages/AdminPage";
 import { AdminVehicleCatalogPage } from "./pages/AdminVehicleCatalogPage";
+import { AdminVehicleOffersPage } from "./pages/AdminVehicleOffersPage";
 import { CompanyDashboardPage } from "./pages/CompanyDashboardPage";
+import { CompanyOffersPage } from "./pages/CompanyOffersPage";
 import { CompanyRegisterPage } from "./pages/CompanyRegisterPage";
+import { CompanyRequestDetailPage } from "./pages/CompanyRequestDetailPage";
+import { CompanyRequestsPage } from "./pages/CompanyRequestsPage";
 import { CustomerDashboardPage } from "./pages/CustomerDashboardPage";
 import { CustomerRequestDetailPage } from "./pages/CustomerRequestDetailPage";
+import { CustomerRequestOffersPage } from "./pages/CustomerRequestOffersPage";
 import { CustomerRequestsPage } from "./pages/CustomerRequestsPage";
 import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { NewCustomerRequestPage } from "./pages/NewCustomerRequestPage";
+import { NewCompanyOfferPage } from "./pages/NewCompanyOfferPage";
 import { PrivacyPage } from "./pages/PrivacyPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { TermsPage } from "./pages/TermsPage";
@@ -33,9 +39,15 @@ const router = createBrowserRouter([
       { path: "customer/requests", element: <CustomerRequestsPage /> },
       { path: "customer/requests/new", element: <NewCustomerRequestPage /> },
       { path: "customer/requests/:id", element: <CustomerRequestDetailPage /> },
+      { path: "customer/requests/:requestId/offers", element: <CustomerRequestOffersPage /> },
       { path: "company/dashboard", element: <CompanyDashboardPage /> },
+      { path: "company/requests", element: <CompanyRequestsPage /> },
+      { path: "company/requests/:requestId", element: <CompanyRequestDetailPage /> },
+      { path: "company/requests/:requestId/offers/new", element: <NewCompanyOfferPage /> },
+      { path: "company/offers", element: <CompanyOffersPage /> },
       { path: "admin", element: <AdminPage /> },
       { path: "admin/vehicle-catalog", element: <AdminVehicleCatalogPage /> },
+      { path: "admin/vehicle-offers", element: <AdminVehicleOffersPage /> },
       { path: "privacy", element: <PrivacyPage /> },
       { path: "terms", element: <TermsPage /> }
     ]

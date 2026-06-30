@@ -11,9 +11,15 @@
     "customerRequests": "My requests",
     "createRequest": "Create request",
     "companyDashboard": "Company dashboard",
+    "companyRequests": "Customer requests",
+    "companyOffers": "Company offers",
     "admin": "Admin",
     "privacy": "Privacy",
     "terms": "Terms"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No"
   },
   "auth": {
     "emailOrPhone": "Email or phone",
@@ -117,6 +123,80 @@
     "MAYBE_LATER": "Maybe later",
     "NO": "No",
     "NOT_ASKED": "Not asked"
+  },
+  "companyRequests": {
+    "title": "Visible customer requests",
+    "description": "Review active customer vehicle requests and submit structured offers.",
+    "details": "Customer request details",
+    "backToRequests": "Back to company requests",
+    "empty": "No visible customer requests yet."
+  },
+  "offers": {
+    "myOffers": "My company offers",
+    "myOffersDescription": "Track and withdraw offers submitted by your company.",
+    "empty": "No offers yet.",
+    "newOffer": "New vehicle offer",
+    "submitOffer": "Submit offer",
+    "compareOffers": "Compare offers",
+    "compareDescription": "Compare submitted company offers for this vehicle request.",
+    "loadFailed": "Could not load offers.",
+    "createFailed": "Could not create offer.",
+    "updateFailed": "Could not update offer.",
+    "withdraw": "Withdraw",
+    "offerType": "Offer type",
+    "availability": "Availability",
+    "delivery": "Delivery days",
+    "vehicle": "Vehicle",
+    "company": "Company",
+    "status": "Status",
+    "createdAt": "Created",
+    "year": "Year",
+    "trim": "Trim",
+    "rangeKm": "Range, km",
+    "mileageKm": "Mileage, km",
+    "batteryKwh": "Battery, kWh",
+    "color": "Color",
+    "sourceCountry": "Source country",
+    "deliveryMin": "Delivery min days",
+    "deliveryMax": "Delivery max days",
+    "priceAmount": "Price amount",
+    "advancePaymentAmount": "Advance payment amount",
+    "warrantyMonths": "Warranty months",
+    "batteryWarrantyMonths": "Battery warranty months",
+    "warrantyProvider": "Warranty provider",
+    "priceIncludesCustoms": "Includes customs",
+    "priceIncludesRegistration": "Includes registration",
+    "priceIncludesDeliveryToArmenia": "Includes delivery to Armenia",
+    "priceIncludesDealerFee": "Includes dealer fee",
+    "priceIsFinal": "Final price",
+    "advancePaymentRequired": "Advance payment required",
+    "advancePaymentRefundable": "Advance payment refundable",
+    "serviceSupportIncluded": "Service support included",
+    "chargerIncluded": "Charger included",
+    "financingAvailable": "Financing available",
+    "tradeInAccepted": "Trade-in accepted"
+  },
+  "offerTypes": {
+    "IN_STOCK": "In stock",
+    "IMPORT_ORDER": "Import order",
+    "ALTERNATIVE_RECOMMENDATION": "Alternative recommendation"
+  },
+  "offerStatuses": {
+    "SUBMITTED": "Submitted",
+    "UPDATED": "Updated",
+    "WITHDRAWN": "Withdrawn",
+    "SELECTED": "Selected",
+    "REJECTED_BY_CUSTOMER": "Rejected by customer",
+    "EXPIRED": "Expired"
+  },
+  "availabilityStatuses": {
+    "IN_ARMENIA": "In Armenia",
+    "IN_TRANSIT": "In transit",
+    "IMPORT_REQUIRED": "Import required"
+  },
+  "adminOffers": {
+    "title": "Vehicle offers",
+    "description": "Review all company offers submitted for customer vehicle requests."
   },
   "adminCatalog": {
     "title": "Vehicle catalog",

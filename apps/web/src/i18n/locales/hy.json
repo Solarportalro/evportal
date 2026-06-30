@@ -11,9 +11,15 @@
     "customerRequests": "Իմ հայտերը",
     "createRequest": "Ստեղծել հայտ",
     "companyDashboard": "Ընկերության վահանակ",
+    "companyRequests": "Հաճախորդների հայտեր",
+    "companyOffers": "Ընկերության առաջարկներ",
     "admin": "Ադմին",
     "privacy": "Գաղտնիություն",
     "terms": "Պայմաններ"
+  },
+  "common": {
+    "yes": "Այո",
+    "no": "Ոչ"
   },
   "auth": {
     "emailOrPhone": "Էլ․ փոստ կամ հեռախոս",
@@ -117,6 +123,80 @@
     "MAYBE_LATER": "Գուցե հետո",
     "NO": "Ոչ",
     "NOT_ASKED": "Չի հարցվել"
+  },
+  "companyRequests": {
+    "title": "Տեսանելի հաճախորդների հայտեր",
+    "description": "Դիտեք ակտիվ հայտերը և ուղարկեք կառուցվածքային առաջարկներ։",
+    "details": "Հաճախորդի հայտի մանրամասներ",
+    "backToRequests": "Վերադառնալ ընկերության հայտերին",
+    "empty": "Տեսանելի հայտեր դեռ չկան։"
+  },
+  "offers": {
+    "myOffers": "Իմ ընկերության առաջարկները",
+    "myOffersDescription": "Հետևեք և հետ կանչեք ընկերության ուղարկած առաջարկները։",
+    "empty": "Առաջարկներ դեռ չկան։",
+    "newOffer": "Նոր մեքենայի առաջարկ",
+    "submitOffer": "Ուղարկել առաջարկ",
+    "compareOffers": "Համեմատել առաջարկները",
+    "compareDescription": "Համեմատեք այս հայտի համար ընկերությունների ուղարկած առաջարկները։",
+    "loadFailed": "Չհաջողվեց բեռնել առաջարկները։",
+    "createFailed": "Չհաջողվեց ստեղծել առաջարկը։",
+    "updateFailed": "Չհաջողվեց թարմացնել առաջարկը։",
+    "withdraw": "Հետ կանչել",
+    "offerType": "Առաջարկի տեսակ",
+    "availability": "Հասանելիություն",
+    "delivery": "Առաքման օրեր",
+    "vehicle": "Մեքենա",
+    "company": "Ընկերություն",
+    "status": "Կարգավիճակ",
+    "createdAt": "Ստեղծված է",
+    "year": "Տարի",
+    "trim": "Կոմպլեկտացիա",
+    "rangeKm": "Ընթացք, կմ",
+    "mileageKm": "Վազք, կմ",
+    "batteryKwh": "Մարտկոց, kWh",
+    "color": "Գույն",
+    "sourceCountry": "Աղբյուր երկիր",
+    "deliveryMin": "Առաքման նվազագույն օրեր",
+    "deliveryMax": "Առաքման առավելագույն օրեր",
+    "priceAmount": "Գին",
+    "advancePaymentAmount": "Կանխավճարի գումար",
+    "warrantyMonths": "Երաշխիք, ամիս",
+    "batteryWarrantyMonths": "Մարտկոցի երաշխիք, ամիս",
+    "warrantyProvider": "Երաշխիքի տրամադրող",
+    "priceIncludesCustoms": "Ներառում է մաքսազերծումը",
+    "priceIncludesRegistration": "Ներառում է գրանցումը",
+    "priceIncludesDeliveryToArmenia": "Ներառում է առաքումը Հայաստան",
+    "priceIncludesDealerFee": "Ներառում է դիլերի վճարը",
+    "priceIsFinal": "Վերջնական գին",
+    "advancePaymentRequired": "Կանխավճար պահանջվում է",
+    "advancePaymentRefundable": "Կանխավճարը վերադարձվող է",
+    "serviceSupportIncluded": "Սպասարկման աջակցությունը ներառված է",
+    "chargerIncluded": "Լիցքավորիչը ներառված է",
+    "financingAvailable": "Ֆինանսավորում հասանելի է",
+    "tradeInAccepted": "Trade-in ընդունվում է"
+  },
+  "offerTypes": {
+    "IN_STOCK": "Առկա է",
+    "IMPORT_ORDER": "Ներմուծման պատվեր",
+    "ALTERNATIVE_RECOMMENDATION": "Այլընտրանքային առաջարկ"
+  },
+  "offerStatuses": {
+    "SUBMITTED": "Ուղարկված",
+    "UPDATED": "Թարմացված",
+    "WITHDRAWN": "Հետ կանչված",
+    "SELECTED": "Ընտրված",
+    "REJECTED_BY_CUSTOMER": "Մերժված հաճախորդի կողմից",
+    "EXPIRED": "Ժամկետանց"
+  },
+  "availabilityStatuses": {
+    "IN_ARMENIA": "Հայաստանում է",
+    "IN_TRANSIT": "Ճանապարհին է",
+    "IMPORT_REQUIRED": "Ներմուծում է պահանջվում"
+  },
+  "adminOffers": {
+    "title": "Մեքենաների առաջարկներ",
+    "description": "Դիտեք հաճախորդների հայտերի համար ուղարկված բոլոր առաջարկները։"
   },
   "adminCatalog": {
     "title": "Մեքենաների կատալոգ",

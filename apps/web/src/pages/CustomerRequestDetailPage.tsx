@@ -25,6 +25,11 @@ export function CustomerRequestDetailPage() {
         {t("requests.backToRequests")}
       </Link>
       <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950">{t("requests.details")}</h1>
+      {id ? (
+        <Link className="mt-4 inline-flex rounded bg-emerald-700 px-4 py-2 text-sm font-medium text-white" to={`/customer/requests/${id}/offers`}>
+          {t("offers.compareOffers")}
+        </Link>
+      ) : null}
       {message ? <p className="mt-6 text-sm text-red-700">{message}</p> : null}
       {request ? (
         <div className="mt-6 rounded border border-slate-200 bg-white p-5">

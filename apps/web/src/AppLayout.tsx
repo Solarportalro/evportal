@@ -10,6 +10,8 @@ const navItems = [
   { to: "/customer/requests", labelKey: "nav.customerRequests" },
   { to: "/customer/requests/new", labelKey: "nav.createRequest" },
   { to: "/company/dashboard", labelKey: "nav.companyDashboard" },
+  { to: "/company/requests", labelKey: "nav.companyRequests" },
+  { to: "/company/offers", labelKey: "nav.companyOffers" },
   { to: "/admin", labelKey: "nav.admin" }
 ];
 

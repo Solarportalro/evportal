@@ -8,9 +8,12 @@ export function AdminPage() {
   return (
     <div className="grid gap-6">
       <PlaceholderPage title={t("pages.admin.title")} description={t("pages.admin.description")} />
-      <div>
+      <div className="flex flex-wrap gap-3">
         <Link className="rounded bg-slate-900 px-4 py-2 text-sm font-medium text-white" to="/admin/vehicle-catalog">
           {t("adminCatalog.title")}
+        </Link>
+        <Link className="rounded bg-slate-900 px-4 py-2 text-sm font-medium text-white" to="/admin/vehicle-offers">
+          {t("adminOffers.title")}
         </Link>
       </div>
     </div>

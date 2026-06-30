@@ -93,6 +93,33 @@ enum SolarChargingInterest {
   NOT_ASKED
 }
 
+enum VehicleOfferType {
+  IN_STOCK
+  IMPORT_ORDER
+  ALTERNATIVE_RECOMMENDATION
+}
+
+enum VehicleOfferStatus {
+  SUBMITTED
+  UPDATED
+  WITHDRAWN
+  SELECTED
+  REJECTED_BY_CUSTOMER
+  EXPIRED
+}
+
+enum VehicleAvailabilityStatus {
+  IN_ARMENIA
+  IN_TRANSIT
+  IMPORT_REQUIRED
+}
+
+enum OfferCurrency {
+  AMD
+  USD
+  EUR
+}
+
 model GlobalCustomer {
   id              String   @id @default(cuid())
   normalizedPhone String?  @unique
@@ -124,6 +151,7 @@ model User {
   setPasswordTokens       SetPasswordToken[]
   emailVerificationTokens EmailVerificationToken[]
   vehicleRequests         VehicleRequest[]
+  submittedVehicleOffers  VehicleOffer[]
 
   @@index([normalizedEmail])
   @@index([normalizedPhone])
@@ -138,6 +166,7 @@ model Company {
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
   members    CompanyMember[]
+  vehicleOffers VehicleOffer[]
 }
 
 model CompanyMember {
@@ -208,6 +237,7 @@ model VehicleMake {
   updatedAt       DateTime         @updatedAt
   models          VehicleModel[]
   vehicleRequests VehicleRequest[]
+  vehicleOffers   VehicleOffer[]
 
   @@index([isActive])
 }
@@ -222,6 +252,7 @@ model VehicleModel {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   vehicleRequests VehicleRequest[]
+  vehicleOffers   VehicleOffer[]
 
   @@unique([makeId, name])
   @@unique([makeId, slug])
@@ -255,10 +286,70 @@ model VehicleRequest {
   notes                 String?
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
+  offers                VehicleOffer[]
 
   @@index([customerId])
   @@index([status])
   @@index([fuelType])
+  @@index([createdAt])
+  @@index([makeId])
+  @@index([modelId])
+}
+
+model VehicleOffer {
+  id                             String                    @id @default(cuid())
+  requestId                      String
+  request                        VehicleRequest            @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  companyId                      String
+  company                        Company                   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  submittedByUserId              String
+  submittedByUser                User                      @relation(fields: [submittedByUserId], references: [id], onDelete: Cascade)
+  offerType                      VehicleOfferType
+  status                         VehicleOfferStatus        @default(SUBMITTED)
+  makeId                         String?
+  make                           VehicleMake?              @relation(fields: [makeId], references: [id], onDelete: SetNull)
+  modelId                        String?
+  model                          VehicleModel?             @relation(fields: [modelId], references: [id], onDelete: SetNull)
+  manualMake                     String?
+  manualModel                    String?
+  year                           Int?
+  trim                           String?
+  fuelType                       VehicleFuelType
+  batteryCapacityKwh             Float?
+  rangeKm                        Int?
+  mileageKm                      Int?
+  color                          String?
+  availabilityStatus             VehicleAvailabilityStatus
+  sourceCountry                  String?
+  estimatedDeliveryDaysMin       Int?
+  estimatedDeliveryDaysMax       Int?
+  priceAmount                    Int
+  currency                       OfferCurrency
+  priceIncludesCustoms           Boolean                   @default(false)
+  priceIncludesRegistration      Boolean                   @default(false)
+  priceIncludesDeliveryToArmenia Boolean                   @default(false)
+  priceIncludesDealerFee         Boolean                   @default(false)
+  priceIsFinal                   Boolean                   @default(false)
+  advancePaymentRequired         Boolean                   @default(false)
+  advancePaymentAmount           Int?
+  advancePaymentRefundable       Boolean?
+  warrantyMonths                 Int?
+  batteryWarrantyMonths          Int?
+  warrantyProvider               String?
+  serviceSupportIncluded         Boolean                   @default(false)
+  chargerIncluded                Boolean                   @default(false)
+  financingAvailable             Boolean                   @default(false)
+  tradeInAccepted                Boolean                   @default(false)
+  offerValidUntil                DateTime?
+  notes                          String?
+  createdAt                      DateTime                  @default(now())
+  updatedAt                      DateTime                  @updatedAt
+
+  @@index([requestId])
+  @@index([companyId])
+  @@index([submittedByUserId])
+  @@index([status])
+  @@index([offerType])
   @@index([createdAt])
   @@index([makeId])
   @@index([modelId])
