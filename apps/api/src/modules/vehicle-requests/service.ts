@@ -1,11 +1,14 @@
 import {
   HasSolar,
+  ChargerNeed,
+  FinancingInterest,
   Prisma,
   PurchaseTimeline,
   SolarChargingInterest,
   StockImportPreference,
   UserRole,
   VehicleBodyType,
+  VehicleConditionPreference,
   VehicleFuelType,
   VehicleRequestMode,
   VehicleRequestStatus
@@ -35,6 +38,15 @@ export type CreateVehicleRequestInput = {
   purchaseTimeline: PurchaseTimeline;
   hasSolar: HasSolar;
   solarChargingInterest?: SolarChargingInterest;
+  conditionPreference?: VehicleConditionPreference;
+  maxMileageKm?: number | null;
+  financingInterest?: FinancingInterest;
+  tradeInInterest?: boolean;
+  chargerNeeded?: ChargerNeed;
+  customerRegion?: string | null;
+  customerCity?: string | null;
+  usageType?: string | null;
+  chargingAccess?: string | null;
   notes?: string | null;
 };
 
@@ -126,12 +138,24 @@ function normalizeCreateInput(input: CreateVehicleRequestInput): CreateVehicleRe
     modelId: hasCatalogSelection ? modelId : null,
     manualMake: hasCatalogSelection ? null : cleanText(input.manualMake),
     manualModel: hasCatalogSelection ? null : cleanText(input.manualModel),
+    conditionPreference: input.conditionPreference ?? VehicleConditionPreference.NOT_SURE,
+    financingInterest: input.financingInterest ?? FinancingInterest.NOT_SURE,
+    tradeInInterest: input.tradeInInterest ?? false,
+    chargerNeeded: input.chargerNeeded ?? ChargerNeed.NOT_SURE,
+    customerRegion: cleanText(input.customerRegion),
+    customerCity: cleanText(input.customerCity),
+    usageType: cleanText(input.usageType),
+    chargingAccess: cleanText(input.chargingAccess),
     notes: cleanText(input.notes),
     solarChargingInterest: input.solarChargingInterest ?? SolarChargingInterest.NOT_ASKED
   };
 }
 
 export function validateVehicleRequestInput(input: CreateVehicleRequestInput) {
+  if (input.maxMileageKm !== undefined && input.maxMileageKm !== null && input.maxMileageKm < 0) {
+    throw new AppError("maxMileageKm must be non-negative", 400, "INVALID_MAX_MILEAGE");
+  }
+
   if (input.budgetMin && input.budgetMax && input.budgetMin > input.budgetMax) {
     throw new AppError("budgetMin must not exceed budgetMax", 400, "INVALID_BUDGET_RANGE");
   }
@@ -243,6 +267,15 @@ async function createVehicleRequestForCustomer(customerId: string, data: CreateV
       purchaseTimeline: data.purchaseTimeline,
       hasSolar: data.hasSolar,
       solarChargingInterest: data.solarChargingInterest,
+      conditionPreference: data.conditionPreference,
+      maxMileageKm: data.maxMileageKm,
+      financingInterest: data.financingInterest,
+      tradeInInterest: data.tradeInInterest,
+      chargerNeeded: data.chargerNeeded,
+      customerRegion: data.customerRegion,
+      customerCity: data.customerCity,
+      usageType: data.usageType,
+      chargingAccess: data.chargingAccess,
       notes: data.notes
     },
     include: {
@@ -358,6 +391,15 @@ export async function createPublicVehicleRequest(input: PublicVehicleRequestInpu
         purchaseTimeline: data.purchaseTimeline,
         hasSolar: data.hasSolar,
         solarChargingInterest: data.solarChargingInterest,
+        conditionPreference: data.conditionPreference,
+        maxMileageKm: data.maxMileageKm,
+        financingInterest: data.financingInterest,
+        tradeInInterest: data.tradeInInterest,
+        chargerNeeded: data.chargerNeeded,
+        customerRegion: data.customerRegion,
+        customerCity: data.customerCity,
+        usageType: data.usageType,
+        chargingAccess: data.chargingAccess,
         notes: data.notes
       },
       include: {

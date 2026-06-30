@@ -10,6 +10,9 @@ const stockPreferences = ["IN_STOCK_ONLY", "IMPORT_OK", "BOTH", "NOT_SURE"];
 const timelines = ["ASAP", "ONE_TO_THREE_MONTHS", "JUST_EXPLORING"];
 const solarValues = ["YES", "NO", "PLANNING", "UNKNOWN"];
 const solarInterestValues = ["YES", "MAYBE_LATER", "NO", "NOT_ASKED"];
+const conditionPreferences = ["NEW", "USED", "ANY", "NOT_SURE"];
+const financingInterests = ["CASH", "FINANCING", "LEASING", "NOT_SURE"];
+const chargerNeeds = ["YES", "NO", "NOT_SURE"];
 
 function optionalNumber(value: string) {
   return value ? Number(value) : undefined;
@@ -33,6 +36,15 @@ export function PublicVehicleRequestPage() {
   const [purchaseTimeline, setPurchaseTimeline] = useState("ONE_TO_THREE_MONTHS");
   const [hasSolar, setHasSolar] = useState("UNKNOWN");
   const [solarChargingInterest, setSolarChargingInterest] = useState("NOT_ASKED");
+  const [conditionPreference, setConditionPreference] = useState("NOT_SURE");
+  const [maxMileageKm, setMaxMileageKm] = useState("");
+  const [financingInterest, setFinancingInterest] = useState("NOT_SURE");
+  const [tradeInInterest, setTradeInInterest] = useState(false);
+  const [chargerNeeded, setChargerNeeded] = useState("NOT_SURE");
+  const [customerRegion, setCustomerRegion] = useState("");
+  const [customerCity, setCustomerCity] = useState("");
+  const [usageType, setUsageType] = useState("");
+  const [chargingAccess, setChargingAccess] = useState("");
   const [notes, setNotes] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [devSetPasswordUrl, setDevSetPasswordUrl] = useState<string | null>(null);
@@ -76,6 +88,15 @@ export function PublicVehicleRequestPage() {
       purchaseTimeline,
       hasSolar,
       solarChargingInterest,
+      conditionPreference,
+      maxMileageKm: optionalNumber(maxMileageKm),
+      financingInterest,
+      tradeInInterest,
+      chargerNeeded,
+      customerRegion: customerRegion || undefined,
+      customerCity: customerCity || undefined,
+      usageType: usageType || undefined,
+      chargingAccess: chargingAccess || undefined,
       desiredRangeKm: optionalNumber(desiredRangeKm),
       notes: notes || undefined
     };
@@ -170,7 +191,20 @@ export function PublicVehicleRequestPage() {
           <SelectField label={t("requests.timeline")} options={timelines} prefix="timelines" value={purchaseTimeline} onChange={setPurchaseTimeline} />
           <SelectField label={t("requests.hasSolar")} options={solarValues} prefix="solarValues" value={hasSolar} onChange={setHasSolar} />
           <SelectField label={t("requests.solarInterest")} options={solarInterestValues} prefix="solarInterestValues" value={solarChargingInterest} onChange={setSolarChargingInterest} />
+          <SelectField label={t("requests.conditionPreference")} options={conditionPreferences} prefix="conditionPreferences" value={conditionPreference} onChange={setConditionPreference} />
+          <NumberField label={t("requests.maxMileageKm")} value={maxMileageKm} onChange={setMaxMileageKm} />
+          <SelectField label={t("requests.financingInterest")} options={financingInterests} prefix="financingInterests" value={financingInterest} onChange={setFinancingInterest} />
+          <SelectField label={t("requests.chargerNeeded")} options={chargerNeeds} prefix="chargerNeeds" value={chargerNeeded} onChange={setChargerNeeded} />
+          <TextField label={t("requests.customerRegion")} value={customerRegion} onChange={setCustomerRegion} />
+          <TextField label={t("requests.customerCity")} value={customerCity} onChange={setCustomerCity} />
+          <TextField label={t("requests.usageType")} value={usageType} onChange={setUsageType} />
+          <TextField label={t("requests.chargingAccess")} value={chargingAccess} onChange={setChargingAccess} />
         </div>
+
+        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+          <input checked={tradeInInterest} type="checkbox" onChange={(event) => setTradeInInterest(event.target.checked)} />
+          {t("requests.tradeInInterest")}
+        </label>
 
         <label className="grid gap-2 text-sm font-medium text-slate-700">
           {t("requests.notes")}

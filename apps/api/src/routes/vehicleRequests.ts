@@ -1,9 +1,12 @@
 import {
   HasSolar,
+  ChargerNeed,
+  FinancingInterest,
   PurchaseTimeline,
   SolarChargingInterest,
   StockImportPreference,
   VehicleBodyType,
+  VehicleConditionPreference,
   VehicleFuelType,
   VehicleRequestMode
 } from "@prisma/client";
@@ -39,6 +42,15 @@ export const createVehicleRequestSchema = z.object({
   purchaseTimeline: z.nativeEnum(PurchaseTimeline),
   hasSolar: z.nativeEnum(HasSolar),
   solarChargingInterest: z.nativeEnum(SolarChargingInterest).optional(),
+  conditionPreference: z.nativeEnum(VehicleConditionPreference).optional(),
+  maxMileageKm: z.number().int().nonnegative().optional().nullable(),
+  financingInterest: z.nativeEnum(FinancingInterest).optional(),
+  tradeInInterest: z.boolean().optional(),
+  chargerNeeded: z.nativeEnum(ChargerNeed).optional(),
+  customerRegion: z.string().trim().max(120).optional().nullable(),
+  customerCity: z.string().trim().max(120).optional().nullable(),
+  usageType: z.string().trim().max(160).optional().nullable(),
+  chargingAccess: z.string().trim().max(160).optional().nullable(),
   notes: z.string().trim().max(2000).optional().nullable()
 });
 

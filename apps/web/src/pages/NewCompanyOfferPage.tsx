@@ -9,6 +9,10 @@ const offerTypes = ["IN_STOCK", "IMPORT_ORDER", "ALTERNATIVE_RECOMMENDATION"];
 const fuelTypes = ["ELECTRIC", "PLUG_IN_HYBRID", "HYBRID", "GASOLINE", "DIESEL"];
 const availabilityStatuses = ["IN_ARMENIA", "IN_TRANSIT", "IMPORT_REQUIRED"];
 const currencies = ["AMD", "USD", "EUR"];
+const vehicleConditions = ["NEW", "USED", "UNKNOWN"];
+const sourceMarkets = ["ARMENIA", "CHINA", "EUROPE", "USA", "KOREA", "JAPAN", "UAE", "OTHER", "UNKNOWN"];
+const batteryChemistries = ["LFP", "NMC", "UNKNOWN"];
+const chargingPortTypes = ["CCS2", "GBT", "TYPE2", "TESLA_NACS", "OTHER", "UNKNOWN"];
 
 function optionalNumber(value: FormDataEntryValue | null) {
   const parsed = Number(value);
@@ -75,6 +79,18 @@ export function NewCompanyOfferPage() {
       rangeKm: optionalNumber(formData.get("rangeKm")),
       mileageKm: optionalNumber(formData.get("mileageKm")),
       color: optionalText(formData.get("color")),
+      condition: String(formData.get("condition")),
+      sourceMarket: String(formData.get("sourceMarket")),
+      batteryChemistry: String(formData.get("batteryChemistry")),
+      chargingPortType: String(formData.get("chargingPortType")),
+      acChargingKw: optionalNumber(formData.get("acChargingKw")),
+      dcFastChargingKw: optionalNumber(formData.get("dcFastChargingKw")),
+      driveType: optionalText(formData.get("driveType")),
+      accidentHistoryDeclared: optionalText(formData.get("accidentHistoryDeclared")),
+      vinAvailable: formData.get("vinAvailable") === "on",
+      photosAvailable: formData.get("photosAvailable") === "on",
+      documentsAvailable: formData.get("documentsAvailable") === "on",
+      inspectionIncluded: formData.get("inspectionIncluded") === "on",
       sourceCountry: optionalText(formData.get("sourceCountry")),
       estimatedDeliveryDaysMin: optionalNumber(formData.get("estimatedDeliveryDaysMin")),
       estimatedDeliveryDaysMax: optionalNumber(formData.get("estimatedDeliveryDaysMax")),
@@ -175,6 +191,26 @@ export function NewCompanyOfferPage() {
           <input className="rounded border border-slate-300 px-3 py-2" name="warrantyProvider" placeholder={t("offers.warrantyProvider")} />
         </div>
         <div className="grid gap-4 sm:grid-cols-4">
+          <select className="rounded border border-slate-300 px-3 py-2" name="condition">
+            {vehicleConditions.map((value) => <option key={value} value={value}>{t(`vehicleConditions.${value}`)}</option>)}
+          </select>
+          <select className="rounded border border-slate-300 px-3 py-2" name="sourceMarket">
+            {sourceMarkets.map((value) => <option key={value} value={value}>{t(`sourceMarkets.${value}`)}</option>)}
+          </select>
+          <select className="rounded border border-slate-300 px-3 py-2" name="batteryChemistry">
+            {batteryChemistries.map((value) => <option key={value} value={value}>{t(`batteryChemistries.${value}`)}</option>)}
+          </select>
+          <select className="rounded border border-slate-300 px-3 py-2" name="chargingPortType">
+            {chargingPortTypes.map((value) => <option key={value} value={value}>{t(`chargingPortTypes.${value}`)}</option>)}
+          </select>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-4">
+          <input className="rounded border border-slate-300 px-3 py-2" name="acChargingKw" placeholder={t("offers.acChargingKw")} type="number" step="0.1" />
+          <input className="rounded border border-slate-300 px-3 py-2" name="dcFastChargingKw" placeholder={t("offers.dcFastChargingKw")} type="number" step="0.1" />
+          <input className="rounded border border-slate-300 px-3 py-2" name="driveType" placeholder={t("offers.driveType")} />
+          <input className="rounded border border-slate-300 px-3 py-2" name="accidentHistoryDeclared" placeholder={t("offers.accidentHistoryDeclared")} />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-4">
           <input className="rounded border border-slate-300 px-3 py-2" name="estimatedDeliveryDaysMin" placeholder={t("offers.deliveryMin")} type="number" />
           <input className="rounded border border-slate-300 px-3 py-2" name="estimatedDeliveryDaysMax" placeholder={t("offers.deliveryMax")} type="number" />
           <input className="rounded border border-slate-300 px-3 py-2" name="warrantyMonths" placeholder={t("offers.warrantyMonths")} type="number" />
@@ -199,7 +235,11 @@ export function NewCompanyOfferPage() {
             "serviceSupportIncluded",
             "chargerIncluded",
             "financingAvailable",
-            "tradeInAccepted"
+            "tradeInAccepted",
+            "vinAvailable",
+            "photosAvailable",
+            "documentsAvailable",
+            "inspectionIncluded"
           ].map((name) => (
             <label className="flex items-center gap-2 text-sm" key={name}>
               <input name={name} type="checkbox" />

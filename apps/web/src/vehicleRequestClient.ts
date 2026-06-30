@@ -33,6 +33,15 @@ export type VehicleRequest = {
   purchaseTimeline: string;
   hasSolar: string;
   solarChargingInterest: string;
+  conditionPreference: string;
+  maxMileageKm: number | null;
+  financingInterest: string;
+  tradeInInterest: boolean;
+  chargerNeeded: string;
+  customerRegion: string | null;
+  customerCity: string | null;
+  usageType: string | null;
+  chargingAccess: string | null;
   notes: string | null;
   hasContactAccess?: boolean;
   createdAt: string;
@@ -56,6 +65,15 @@ export type CreateVehicleRequestInput = {
   purchaseTimeline: string;
   hasSolar: string;
   solarChargingInterest?: string;
+  conditionPreference?: string;
+  maxMileageKm?: number;
+  financingInterest?: string;
+  tradeInInterest?: boolean;
+  chargerNeeded?: string;
+  customerRegion?: string;
+  customerCity?: string;
+  usageType?: string;
+  chargingAccess?: string;
   notes?: string;
 };
 

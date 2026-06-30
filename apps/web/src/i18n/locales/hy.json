@@ -120,7 +120,16 @@
     "submit": "Ուղարկել հայտը",
     "loadFailed": "Չհաջողվեց բեռնել մեքենայի հայտերը։",
     "createFailed": "Չհաջողվեց ստեղծել մեքենայի հայտը։",
-    "catalogLoadFailed": "Չհաջողվեց բեռնել մեքենաների ցանկը։"
+    "catalogLoadFailed": "Չհաջողվեց բեռնել մեքենաների ցանկը։",
+    "conditionPreference": "Վիճակի նախընտրություն",
+    "maxMileageKm": "Առավելագույն վազք, կմ",
+    "financingInterest": "Ֆինանսավորման հետաքրքրություն",
+    "tradeInInterest": "Trade-in հետաքրքրություն",
+    "chargerNeeded": "Լիցքավորիչ պետք է",
+    "customerRegion": "Մարզ",
+    "customerCity": "Քաղաք",
+    "usageType": "Օգտագործման տեսակ",
+    "chargingAccess": "Լիցքավորման հասանելիություն"
   },
   "publicRequest": {
     "title": "Ստանալ մեքենայի առաջարկներ",
@@ -251,7 +260,19 @@
     "serviceSupportIncluded": "Սպասարկման աջակցությունը ներառված է",
     "chargerIncluded": "Լիցքավորիչը ներառված է",
     "financingAvailable": "Ֆինանսավորում հասանելի է",
-    "tradeInAccepted": "Trade-in ընդունվում է"
+    "tradeInAccepted": "Trade-in ընդունվում է",
+    "condition": "Վիճակ",
+    "sourceMarket": "Աղբյուր շուկա",
+    "batteryChemistry": "Մարտկոցի քիմիա",
+    "chargingPortType": "Լիցքավորման պորտ",
+    "acChargingKw": "AC լիցքավորում, կՎտ",
+    "dcFastChargingKw": "DC արագ լիցքավորում, կՎտ",
+    "driveType": "Քարշակի տեսակ",
+    "accidentHistoryDeclared": "Վթարի պատմություն նշված է",
+    "vinAvailable": "VIN հասանելի է",
+    "photosAvailable": "Լուսանկարներ կան",
+    "documentsAvailable": "Փաստաթղթեր կան",
+    "inspectionIncluded": "Ստուգումը ներառված է"
   },
   "offerTypes": {
     "IN_STOCK": "Առկա է",
@@ -415,5 +436,51 @@
       "title": "Օգտագործման պայմաններ",
       "description": "Պայմանների էջի placeholder։"
     }
+  },
+  "conditionPreferences": {
+    "NEW": "Նոր",
+    "USED": "Օգտագործված",
+    "ANY": "Ցանկացած",
+    "NOT_SURE": "Վստահ չեմ"
+  },
+  "financingInterests": {
+    "CASH": "Կանխիկ",
+    "FINANCING": "Ֆինանսավորում",
+    "LEASING": "Լիզինգ",
+    "NOT_SURE": "Վստահ չեմ"
+  },
+  "chargerNeeds": {
+    "YES": "Այո",
+    "NO": "Ոչ",
+    "NOT_SURE": "Վստահ չեմ"
+  },
+  "vehicleConditions": {
+    "NEW": "Նոր",
+    "USED": "Օգտագործված",
+    "UNKNOWN": "Անհայտ"
+  },
+  "sourceMarkets": {
+    "ARMENIA": "Հայաստան",
+    "CHINA": "Չինաստան",
+    "EUROPE": "Եվրոպա",
+    "USA": "ԱՄՆ",
+    "KOREA": "Կորեա",
+    "JAPAN": "Ճապոնիա",
+    "UAE": "ԱՄԷ",
+    "OTHER": "Այլ",
+    "UNKNOWN": "Անհայտ"
+  },
+  "batteryChemistries": {
+    "LFP": "LFP",
+    "NMC": "NMC",
+    "UNKNOWN": "Անհայտ"
+  },
+  "chargingPortTypes": {
+    "CCS2": "CCS2",
+    "GBT": "GB/T",
+    "TYPE2": "Type 2",
+    "TESLA_NACS": "Tesla NACS",
+    "OTHER": "Այլ",
+    "UNKNOWN": "Անհայտ"
   }
 }

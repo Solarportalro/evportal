@@ -120,7 +120,16 @@
     "submit": "Submit request",
     "loadFailed": "Could not load vehicle requests.",
     "createFailed": "Could not create vehicle request.",
-    "catalogLoadFailed": "Could not load vehicle catalog."
+    "catalogLoadFailed": "Could not load vehicle catalog.",
+    "conditionPreference": "Condition preference",
+    "maxMileageKm": "Maximum mileage, km",
+    "financingInterest": "Financing interest",
+    "tradeInInterest": "Trade-in interest",
+    "chargerNeeded": "Charger needed",
+    "customerRegion": "Region",
+    "customerCity": "City",
+    "usageType": "Usage type",
+    "chargingAccess": "Charging access"
   },
   "publicRequest": {
     "title": "Request vehicle offers",
@@ -251,7 +260,19 @@
     "serviceSupportIncluded": "Service support included",
     "chargerIncluded": "Charger included",
     "financingAvailable": "Financing available",
-    "tradeInAccepted": "Trade-in accepted"
+    "tradeInAccepted": "Trade-in accepted",
+    "condition": "Condition",
+    "sourceMarket": "Source market",
+    "batteryChemistry": "Battery chemistry",
+    "chargingPortType": "Charging port",
+    "acChargingKw": "AC charging kW",
+    "dcFastChargingKw": "DC fast charging kW",
+    "driveType": "Drive type",
+    "accidentHistoryDeclared": "Accident history declared",
+    "vinAvailable": "VIN available",
+    "photosAvailable": "Photos available",
+    "documentsAvailable": "Documents available",
+    "inspectionIncluded": "Inspection included"
   },
   "offerTypes": {
     "IN_STOCK": "In stock",
@@ -415,5 +436,51 @@
       "title": "Terms of use",
       "description": "Terms page placeholder."
     }
+  },
+  "conditionPreferences": {
+    "NEW": "New",
+    "USED": "Used",
+    "ANY": "Any",
+    "NOT_SURE": "Not sure"
+  },
+  "financingInterests": {
+    "CASH": "Cash",
+    "FINANCING": "Financing",
+    "LEASING": "Leasing",
+    "NOT_SURE": "Not sure"
+  },
+  "chargerNeeds": {
+    "YES": "Yes",
+    "NO": "No",
+    "NOT_SURE": "Not sure"
+  },
+  "vehicleConditions": {
+    "NEW": "New",
+    "USED": "Used",
+    "UNKNOWN": "Unknown"
+  },
+  "sourceMarkets": {
+    "ARMENIA": "Armenia",
+    "CHINA": "China",
+    "EUROPE": "Europe",
+    "USA": "USA",
+    "KOREA": "Korea",
+    "JAPAN": "Japan",
+    "UAE": "UAE",
+    "OTHER": "Other",
+    "UNKNOWN": "Unknown"
+  },
+  "batteryChemistries": {
+    "LFP": "LFP",
+    "NMC": "NMC",
+    "UNKNOWN": "Unknown"
+  },
+  "chargingPortTypes": {
+    "CCS2": "CCS2",
+    "GBT": "GB/T",
+    "TYPE2": "Type 2",
+    "TESLA_NACS": "Tesla NACS",
+    "OTHER": "Other",
+    "UNKNOWN": "Unknown"
   }
 }

@@ -84,6 +84,26 @@ export enum SolarChargingInterest {
   NOT_ASKED = "NOT_ASKED"
 }
 
+export enum VehicleConditionPreference {
+  NEW = "NEW",
+  USED = "USED",
+  ANY = "ANY",
+  NOT_SURE = "NOT_SURE"
+}
+
+export enum FinancingInterest {
+  CASH = "CASH",
+  FINANCING = "FINANCING",
+  LEASING = "LEASING",
+  NOT_SURE = "NOT_SURE"
+}
+
+export enum ChargerNeed {
+  YES = "YES",
+  NO = "NO",
+  NOT_SURE = "NOT_SURE"
+}
+
 export enum VehicleOfferType {
   IN_STOCK = "IN_STOCK",
   IMPORT_ORDER = "IMPORT_ORDER",
@@ -103,6 +123,39 @@ export enum VehicleAvailabilityStatus {
   IN_ARMENIA = "IN_ARMENIA",
   IN_TRANSIT = "IN_TRANSIT",
   IMPORT_REQUIRED = "IMPORT_REQUIRED"
+}
+
+export enum VehicleCondition {
+  NEW = "NEW",
+  USED = "USED",
+  UNKNOWN = "UNKNOWN"
+}
+
+export enum SourceMarket {
+  ARMENIA = "ARMENIA",
+  CHINA = "CHINA",
+  EUROPE = "EUROPE",
+  USA = "USA",
+  KOREA = "KOREA",
+  JAPAN = "JAPAN",
+  UAE = "UAE",
+  OTHER = "OTHER",
+  UNKNOWN = "UNKNOWN"
+}
+
+export enum ChargingPortType {
+  CCS2 = "CCS2",
+  GBT = "GBT",
+  TYPE2 = "TYPE2",
+  TESLA_NACS = "TESLA_NACS",
+  OTHER = "OTHER",
+  UNKNOWN = "UNKNOWN"
+}
+
+export enum BatteryChemistry {
+  LFP = "LFP",
+  NMC = "NMC",
+  UNKNOWN = "UNKNOWN"
 }
 
 export enum OfferCurrency {
@@ -165,6 +218,18 @@ export type VehicleOffer = {
   mileageKm: number | null;
   color: string | null;
   availabilityStatus: VehicleAvailabilityStatus;
+  condition: VehicleCondition;
+  sourceMarket: SourceMarket;
+  batteryChemistry: BatteryChemistry;
+  chargingPortType: ChargingPortType;
+  acChargingKw: number | null;
+  dcFastChargingKw: number | null;
+  driveType: string | null;
+  accidentHistoryDeclared: string | null;
+  vinAvailable: boolean;
+  photosAvailable: boolean;
+  documentsAvailable: boolean;
+  inspectionIncluded: boolean;
   sourceCountry: string | null;
   estimatedDeliveryDaysMin: number | null;
   estimatedDeliveryDaysMax: number | null;

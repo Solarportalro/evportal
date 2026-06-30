@@ -29,6 +29,8 @@ export function AdminVehicleOffersPage() {
               <th className="p-3">{t("offers.vehicle")}</th>
               <th className="p-3">{t("offers.company")}</th>
               <th className="p-3">{t("offers.priceAmount")}</th>
+              <th className="p-3">{t("offers.condition")}</th>
+              <th className="p-3">{t("offers.sourceMarket")}</th>
               <th className="p-3">{t("offers.status")}</th>
               <th className="p-3">{t("offers.createdAt")}</th>
             </tr>
@@ -39,6 +41,8 @@ export function AdminVehicleOffersPage() {
                 <td className="p-3">{offer.displayMake} {offer.displayModel}</td>
                 <td className="p-3">{offer.company?.publicName ?? "—"}</td>
                 <td className="p-3">{offer.priceAmount.toLocaleString()} {offer.currency}</td>
+                <td className="p-3">{t(`vehicleConditions.${offer.condition}`)}</td>
+                <td className="p-3">{t(`sourceMarkets.${offer.sourceMarket}`)}</td>
                 <td className="p-3">{t(`offerStatuses.${offer.status}`)}</td>
                 <td className="p-3">{new Date(offer.createdAt).toLocaleDateString()}</td>
               </tr>

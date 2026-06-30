@@ -4,8 +4,12 @@ import {
   UserRole,
   VehicleOfferStatus,
   VehicleRequestStatus,
+  type BatteryChemistry,
+  type ChargingPortType,
   type OfferCurrency,
+  type SourceMarket,
   type VehicleAvailabilityStatus,
+  type VehicleCondition,
   type VehicleFuelType,
   type VehicleOfferType
 } from "@prisma/client";
@@ -27,6 +31,18 @@ export type VehicleOfferInput = {
   mileageKm?: number | null;
   color?: string | null;
   availabilityStatus: VehicleAvailabilityStatus;
+  condition?: VehicleCondition;
+  sourceMarket?: SourceMarket;
+  batteryChemistry?: BatteryChemistry;
+  chargingPortType?: ChargingPortType;
+  acChargingKw?: number | null;
+  dcFastChargingKw?: number | null;
+  driveType?: string | null;
+  accidentHistoryDeclared?: string | null;
+  vinAvailable?: boolean;
+  photosAvailable?: boolean;
+  documentsAvailable?: boolean;
+  inspectionIncluded?: boolean;
   sourceCountry?: string | null;
   estimatedDeliveryDaysMin?: number | null;
   estimatedDeliveryDaysMax?: number | null;
@@ -210,6 +226,8 @@ function normalizeCreateInput(input: VehicleOfferInput): VehicleOfferInput {
     manualModel: hasCatalogSelection ? null : cleanText(input.manualModel),
     trim: cleanText(input.trim),
     color: cleanText(input.color),
+    driveType: cleanText(input.driveType),
+    accidentHistoryDeclared: cleanText(input.accidentHistoryDeclared),
     sourceCountry: cleanText(input.sourceCountry),
     warrantyProvider: cleanText(input.warrantyProvider),
     notes: cleanText(input.notes),
@@ -235,6 +253,9 @@ function normalizeUpdateInput(input: VehicleOfferUpdateInput): VehicleOfferUpdat
       : {}),
     trim: input.trim === undefined ? undefined : cleanText(input.trim),
     color: input.color === undefined ? undefined : cleanText(input.color),
+    driveType: input.driveType === undefined ? undefined : cleanText(input.driveType),
+    accidentHistoryDeclared:
+      input.accidentHistoryDeclared === undefined ? undefined : cleanText(input.accidentHistoryDeclared),
     sourceCountry: input.sourceCountry === undefined ? undefined : cleanText(input.sourceCountry),
     warrantyProvider: input.warrantyProvider === undefined ? undefined : cleanText(input.warrantyProvider),
     notes: input.notes === undefined ? undefined : cleanText(input.notes),
@@ -276,6 +297,16 @@ async function validateCatalogSelection(input: { makeId?: string | null; modelId
 
   if (hasManualSelection && (!input.manualMake || !input.manualModel)) {
     throw new AppError("Both manualMake and manualModel are required", 400, "MANUAL_SELECTION_INCOMPLETE");
+  }
+}
+
+function validateReportingFields(input: VehicleOfferUpdateInput) {
+  if (input.acChargingKw !== undefined && input.acChargingKw !== null && input.acChargingKw <= 0) {
+    throw new AppError("acChargingKw must be positive", 400, "INVALID_AC_CHARGING_KW");
+  }
+
+  if (input.dcFastChargingKw !== undefined && input.dcFastChargingKw !== null && input.dcFastChargingKw <= 0) {
+    throw new AppError("dcFastChargingKw must be positive", 400, "INVALID_DC_FAST_CHARGING_KW");
   }
 }
 
@@ -402,6 +433,7 @@ export async function createCompanyOffer(user: AuthenticatedUser, requestId: str
   const company = await getUserCompany(user);
   await getOfferableCompanyRequest(requestId);
   const data = normalizeCreateInput(input);
+  validateReportingFields(data);
   await validateCatalogSelection(data);
 
   const activeOfferCount = await prisma.vehicleOffer.count({
@@ -435,6 +467,18 @@ export async function createCompanyOffer(user: AuthenticatedUser, requestId: str
         mileageKm: data.mileageKm,
         color: data.color,
         availabilityStatus: data.availabilityStatus,
+        condition: data.condition,
+        sourceMarket: data.sourceMarket,
+        batteryChemistry: data.batteryChemistry,
+        chargingPortType: data.chargingPortType,
+        acChargingKw: data.acChargingKw,
+        dcFastChargingKw: data.dcFastChargingKw,
+        driveType: data.driveType,
+        accidentHistoryDeclared: data.accidentHistoryDeclared,
+        vinAvailable: data.vinAvailable ?? false,
+        photosAvailable: data.photosAvailable ?? false,
+        documentsAvailable: data.documentsAvailable ?? false,
+        inspectionIncluded: data.inspectionIncluded ?? false,
         sourceCountry: data.sourceCountry,
         estimatedDeliveryDaysMin: data.estimatedDeliveryDaysMin,
         estimatedDeliveryDaysMax: data.estimatedDeliveryDaysMax,
@@ -510,6 +554,7 @@ export async function updateCompanyOffer(user: AuthenticatedUser, offerId: strin
   }
 
   const patch = normalizeUpdateInput(input);
+  validateReportingFields(patch);
   const nextVehicleSelection = {
     makeId: patch.makeId !== undefined ? patch.makeId : existingOffer.makeId,
     modelId: patch.modelId !== undefined ? patch.modelId : existingOffer.modelId,

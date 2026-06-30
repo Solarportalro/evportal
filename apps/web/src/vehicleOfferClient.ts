@@ -42,6 +42,18 @@ export type VehicleOfferInput = {
   mileageKm?: number;
   color?: string;
   availabilityStatus: string;
+  condition?: string;
+  sourceMarket?: string;
+  batteryChemistry?: string;
+  chargingPortType?: string;
+  acChargingKw?: number;
+  dcFastChargingKw?: number;
+  driveType?: string;
+  accidentHistoryDeclared?: string;
+  vinAvailable?: boolean;
+  photosAvailable?: boolean;
+  documentsAvailable?: boolean;
+  inspectionIncluded?: boolean;
   sourceCountry?: string;
   estimatedDeliveryDaysMin?: number;
   estimatedDeliveryDaysMax?: number;

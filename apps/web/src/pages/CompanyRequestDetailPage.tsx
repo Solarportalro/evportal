@@ -77,7 +77,24 @@ export function CompanyRequestDetailPage() {
       {request ? (
         <div className="mt-6 rounded border border-slate-200 bg-white p-5">
           <dl className="grid gap-4 sm:grid-cols-2">
-            {["status", "fuelType", "budgetMin", "budgetMax", "desiredRangeKm", "purchaseTimeline", "notes"].map((key) => (
+            {[
+              "status",
+              "fuelType",
+              "conditionPreference",
+              "maxMileageKm",
+              "financingInterest",
+              "tradeInInterest",
+              "chargerNeeded",
+              "customerRegion",
+              "customerCity",
+              "usageType",
+              "chargingAccess",
+              "budgetMin",
+              "budgetMax",
+              "desiredRangeKm",
+              "purchaseTimeline",
+              "notes"
+            ].map((key) => (
               <div key={key}>
                 <dt className="text-xs font-medium uppercase text-slate-500">{key}</dt>
                 <dd className="mt-1 break-words text-sm text-slate-900">{String(request[key as keyof VehicleRequest] ?? "—")}</dd>

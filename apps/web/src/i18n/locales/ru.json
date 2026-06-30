@@ -120,7 +120,16 @@
     "submit": "Отправить заявку",
     "loadFailed": "Не удалось загрузить заявки.",
     "createFailed": "Не удалось создать заявку.",
-    "catalogLoadFailed": "Не удалось загрузить каталог автомобилей."
+    "catalogLoadFailed": "Не удалось загрузить каталог автомобилей.",
+    "conditionPreference": "Предпочтение по состоянию",
+    "maxMileageKm": "Максимальный пробег, км",
+    "financingInterest": "Интерес к финансированию",
+    "tradeInInterest": "Интерес к trade-in",
+    "chargerNeeded": "Нужна зарядка",
+    "customerRegion": "Регион",
+    "customerCity": "Город",
+    "usageType": "Тип использования",
+    "chargingAccess": "Доступ к зарядке"
   },
   "publicRequest": {
     "title": "Запросить предложения по автомобилю",
@@ -251,7 +260,19 @@
     "serviceSupportIncluded": "Сервисная поддержка включена",
     "chargerIncluded": "Зарядное включено",
     "financingAvailable": "Финансирование доступно",
-    "tradeInAccepted": "Trade-in принимается"
+    "tradeInAccepted": "Trade-in принимается",
+    "condition": "Состояние",
+    "sourceMarket": "Рынок источника",
+    "batteryChemistry": "Химия батареи",
+    "chargingPortType": "Порт зарядки",
+    "acChargingKw": "AC зарядка, кВт",
+    "dcFastChargingKw": "DC быстрая зарядка, кВт",
+    "driveType": "Тип привода",
+    "accidentHistoryDeclared": "Заявленная история ДТП",
+    "vinAvailable": "VIN доступен",
+    "photosAvailable": "Фото доступны",
+    "documentsAvailable": "Документы доступны",
+    "inspectionIncluded": "Инспекция включена"
   },
   "offerTypes": {
     "IN_STOCK": "В наличии",
@@ -415,5 +436,51 @@
       "title": "Условия использования",
       "description": "Placeholder страницы условий."
     }
+  },
+  "conditionPreferences": {
+    "NEW": "Новый",
+    "USED": "Б/у",
+    "ANY": "Любой",
+    "NOT_SURE": "Не уверен"
+  },
+  "financingInterests": {
+    "CASH": "Наличные",
+    "FINANCING": "Финансирование",
+    "LEASING": "Лизинг",
+    "NOT_SURE": "Не уверен"
+  },
+  "chargerNeeds": {
+    "YES": "Да",
+    "NO": "Нет",
+    "NOT_SURE": "Не уверен"
+  },
+  "vehicleConditions": {
+    "NEW": "Новый",
+    "USED": "Б/у",
+    "UNKNOWN": "Неизвестно"
+  },
+  "sourceMarkets": {
+    "ARMENIA": "Армения",
+    "CHINA": "Китай",
+    "EUROPE": "Европа",
+    "USA": "США",
+    "KOREA": "Корея",
+    "JAPAN": "Япония",
+    "UAE": "ОАЭ",
+    "OTHER": "Другое",
+    "UNKNOWN": "Неизвестно"
+  },
+  "batteryChemistries": {
+    "LFP": "LFP",
+    "NMC": "NMC",
+    "UNKNOWN": "Неизвестно"
+  },
+  "chargingPortTypes": {
+    "CCS2": "CCS2",
+    "GBT": "GB/T",
+    "TYPE2": "Type 2",
+    "TESLA_NACS": "Tesla NACS",
+    "OTHER": "Другое",
+    "UNKNOWN": "Неизвестно"
   }
 }

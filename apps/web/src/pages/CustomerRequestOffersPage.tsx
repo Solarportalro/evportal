@@ -58,6 +58,12 @@ export function CustomerRequestOffersPage() {
             </div>
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
               <div><dt className="text-slate-500">{t("offers.availability")}</dt><dd>{t(`availabilityStatuses.${offer.availabilityStatus}`)}</dd></div>
+              <div><dt className="text-slate-500">{t("offers.condition")}</dt><dd>{t(`vehicleConditions.${offer.condition}`)}</dd></div>
+              <div><dt className="text-slate-500">{t("offers.sourceMarket")}</dt><dd>{t(`sourceMarkets.${offer.sourceMarket}`)}</dd></div>
+              <div><dt className="text-slate-500">{t("offers.chargingPortType")}</dt><dd>{t(`chargingPortTypes.${offer.chargingPortType}`)}</dd></div>
+              <div><dt className="text-slate-500">{t("offers.batteryChemistry")}</dt><dd>{t(`batteryChemistries.${offer.batteryChemistry}`)}</dd></div>
+              <div><dt className="text-slate-500">{t("offers.acChargingKw")}</dt><dd>{offer.acChargingKw ?? "—"}</dd></div>
+              <div><dt className="text-slate-500">{t("offers.dcFastChargingKw")}</dt><dd>{offer.dcFastChargingKw ?? "—"}</dd></div>
               <div><dt className="text-slate-500">{t("offers.delivery")}</dt><dd>{offer.estimatedDeliveryDaysMin ?? "—"}-{offer.estimatedDeliveryDaysMax ?? "—"}</dd></div>
               <div><dt className="text-slate-500">{t("offers.warrantyMonths")}</dt><dd>{offer.warrantyMonths ?? "—"}</dd></div>
               <div><dt className="text-slate-500">{t("offers.chargerIncluded")}</dt><dd>{offer.chargerIncluded ? t("common.yes") : t("common.no")}</dd></div>

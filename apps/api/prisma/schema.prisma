@@ -93,6 +93,26 @@ enum SolarChargingInterest {
   NOT_ASKED
 }
 
+enum VehicleConditionPreference {
+  NEW
+  USED
+  ANY
+  NOT_SURE
+}
+
+enum FinancingInterest {
+  CASH
+  FINANCING
+  LEASING
+  NOT_SURE
+}
+
+enum ChargerNeed {
+  YES
+  NO
+  NOT_SURE
+}
+
 enum VehicleOfferType {
   IN_STOCK
   IMPORT_ORDER
@@ -112,6 +132,39 @@ enum VehicleAvailabilityStatus {
   IN_ARMENIA
   IN_TRANSIT
   IMPORT_REQUIRED
+}
+
+enum VehicleCondition {
+  NEW
+  USED
+  UNKNOWN
+}
+
+enum SourceMarket {
+  ARMENIA
+  CHINA
+  EUROPE
+  USA
+  KOREA
+  JAPAN
+  UAE
+  OTHER
+  UNKNOWN
+}
+
+enum ChargingPortType {
+  CCS2
+  GBT
+  TYPE2
+  TESLA_NACS
+  OTHER
+  UNKNOWN
+}
+
+enum BatteryChemistry {
+  LFP
+  NMC
+  UNKNOWN
 }
 
 enum OfferCurrency {
@@ -299,6 +352,15 @@ model VehicleRequest {
   purchaseTimeline      PurchaseTimeline
   hasSolar              HasSolar
   solarChargingInterest SolarChargingInterest @default(NOT_ASKED)
+  conditionPreference   VehicleConditionPreference @default(NOT_SURE)
+  maxMileageKm          Int?
+  financingInterest     FinancingInterest      @default(NOT_SURE)
+  tradeInInterest       Boolean                @default(false)
+  chargerNeeded         ChargerNeed            @default(NOT_SURE)
+  customerRegion        String?
+  customerCity          String?
+  usageType             String?
+  chargingAccess        String?
   notes                 String?
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
@@ -311,6 +373,10 @@ model VehicleRequest {
   @@index([createdAt])
   @@index([makeId])
   @@index([modelId])
+  @@index([conditionPreference])
+  @@index([financingInterest])
+  @@index([chargerNeeded])
+  @@index([customerRegion])
 }
 
 model VehicleOffer {
@@ -337,6 +403,18 @@ model VehicleOffer {
   mileageKm                      Int?
   color                          String?
   availabilityStatus             VehicleAvailabilityStatus
+  condition                      VehicleCondition           @default(UNKNOWN)
+  sourceMarket                   SourceMarket               @default(UNKNOWN)
+  batteryChemistry               BatteryChemistry           @default(UNKNOWN)
+  chargingPortType               ChargingPortType           @default(UNKNOWN)
+  acChargingKw                   Float?
+  dcFastChargingKw               Float?
+  driveType                      String?
+  accidentHistoryDeclared        String?
+  vinAvailable                   Boolean                    @default(false)
+  photosAvailable                Boolean                    @default(false)
+  documentsAvailable             Boolean                    @default(false)
+  inspectionIncluded             Boolean                    @default(false)
   sourceCountry                  String?
   estimatedDeliveryDaysMin       Int?
   estimatedDeliveryDaysMax       Int?
@@ -371,6 +449,10 @@ model VehicleOffer {
   @@index([createdAt])
   @@index([makeId])
   @@index([modelId])
+  @@index([condition])
+  @@index([sourceMarket])
+  @@index([chargingPortType])
+  @@index([batteryChemistry])
 }
 
 model ContactReveal {
