@@ -1,8 +1,11 @@
 export function toSlug(value: string): string {
-  return value
+  const slug = value
     .trim()
     .toLowerCase()
+    .normalize("NFKD")
     .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
     .replace(/^-+|-+$/g, "");
+
+  return slug || "item";
 }

@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppLayout } from "./AppLayout";
 import { i18n } from "./i18n";
 import { AdminPage } from "./pages/AdminPage";
+import { AdminVehicleCatalogPage } from "./pages/AdminVehicleCatalogPage";
 import { CompanyDashboardPage } from "./pages/CompanyDashboardPage";
 import { CompanyRegisterPage } from "./pages/CompanyRegisterPage";
 import { CustomerDashboardPage } from "./pages/CustomerDashboardPage";
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: "customer/requests/:id", element: <CustomerRequestDetailPage /> },
       { path: "company/dashboard", element: <CompanyDashboardPage /> },
       { path: "admin", element: <AdminPage /> },
+      { path: "admin/vehicle-catalog", element: <AdminVehicleCatalogPage /> },
       { path: "privacy", element: <PrivacyPage /> },
       { path: "terms", element: <TermsPage /> }
     ]

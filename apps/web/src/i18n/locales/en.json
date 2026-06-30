@@ -118,6 +118,25 @@
     "NO": "No",
     "NOT_ASKED": "Not asked"
   },
+  "adminCatalog": {
+    "title": "Vehicle catalog",
+    "description": "Manage vehicle makes and models used by customer requests.",
+    "makes": "Makes",
+    "models": "Models",
+    "makeName": "Make name",
+    "modelName": "Model name",
+    "addMake": "Add make",
+    "addModel": "Add model",
+    "edit": "Edit",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "active": "Active",
+    "inactive": "Inactive",
+    "manageModels": "Manage models",
+    "selectMake": "Select a make to manage models.",
+    "loadFailed": "Could not load vehicle catalog.",
+    "modelCount": "{{count}} models"
+  },
   "pages": {
     "home": {
       "title": "EV Portal",
