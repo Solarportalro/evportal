@@ -11,7 +11,9 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "seed": "tsx src/scripts/seedVehicleCatalog.ts",
-    "admin:create": "tsx src/scripts/createPlatformAdmin.ts"
+    "admin:create": "tsx src/scripts/createPlatformAdmin.ts",
+    "seed:demo": "tsx src/scripts/seedDemoData.ts",
+    "smoke": "tsx src/scripts/smokeTest.ts"
   },
   "dependencies": {
     "@evportal/shared": "file:../../packages/shared",

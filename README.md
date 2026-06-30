@@ -19,6 +19,7 @@ docker compose up -d postgres
 npm run prisma:generate -w apps/api
 npm run prisma:migrate -w apps/api
 npm run seed -w apps/api
+npm run seed:demo -w apps/api
 ```
 
 ## Development
@@ -53,6 +54,8 @@ npm run prisma:generate -w apps/api
 npm run prisma:migrate -w apps/api
 npm run seed -w apps/api
 npm run admin:create -w apps/api
+npm run seed:demo -w apps/api
+npm run smoke -w apps/api
 ```
 
 ## Environment
@@ -65,3 +68,5 @@ Use `.env.example` files as templates. Real `.env` files are ignored by git and 
 ## Deployment Prep
 
 Production deployment notes and checklists are in `docs/DEPLOYMENT.md`.
+
+End-to-end QA steps and demo accounts are in `docs/QA_CHECKLIST.md`.
