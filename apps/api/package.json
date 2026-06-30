@@ -10,7 +10,8 @@
     "lint": "tsc -p tsconfig.json --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "seed": "tsx src/scripts/seedVehicleCatalog.ts"
+    "seed": "tsx src/scripts/seedVehicleCatalog.ts",
+    "admin:create": "tsx src/scripts/createPlatformAdmin.ts"
   },
   "dependencies": {
     "@evportal/shared": "file:../../packages/shared",

@@ -18,6 +18,7 @@ import { companyProfileRouter } from "./routes/companyProfile.js";
 import { customerVehicleOffersRouter } from "./routes/customerVehicleOffers.js";
 import { healthRouter } from "./routes/health.js";
 import { publicVehicleRequestsRouter } from "./routes/publicVehicleRequests.js";
+import { readyRouter } from "./routes/ready.js";
 import { vehicleCatalogRouter } from "./routes/vehicleCatalog.js";
 import { vehicleRequestsRouter } from "./routes/vehicleRequests.js";
 
@@ -26,7 +27,7 @@ export const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: config.FRONTEND_URL
+    origin: config.CORS_ORIGIN
   })
 );
 app.use(express.json());
@@ -40,6 +41,7 @@ app.use(
 );
 
 app.use("/api/health", healthRouter);
+app.use("/api/ready", readyRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/public", publicVehicleRequestsRouter);
 app.use("/api/admin/companies", adminCompaniesRouter);
